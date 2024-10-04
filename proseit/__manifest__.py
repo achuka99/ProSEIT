@@ -37,8 +37,6 @@
         'views/proseit_company_views.xml',
         'views/proseit_professional_views.xml',
         'views/proseit_menu.xml',
-        'views/views.xml',
-        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
