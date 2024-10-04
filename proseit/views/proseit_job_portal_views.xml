@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_my_home_link_jobs" inherit_id="portal.portal_my_home" customize_show="True" priority="30">
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/proseit/static/img/proseit_jobs.svg'"/> <!-- Job postings icon -->
+                <t t-set="title">Jobs</t>
+                <t t-set="url" t-value="'/my/jobs'"/>
+                <t t-set="text">View job postings</t>
+                <t t-set="placeholder_count" t-value="'my_jobs_count'"/> <!-- Placeholder for job count -->
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_jobs" name="My Jobs">
+    <t t-call="website.layout">
+        <div class="container">
+            <h2>Job Postings</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Location</th>
+                        <th>Salary</th>
+                        <th>Application Deadline</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="jobs" t-as="job">
+                        <td><t t-esc="job.title"/></td>
+                        <td><t t-esc="job.location"/></td>
+                        <td><t t-esc="job.salary"/></td>
+                        <td><t t-esc="job.application_deadline"/></td>
+                        <td><t t-esc="job.description"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+    </template>
+
+
+</odoo>

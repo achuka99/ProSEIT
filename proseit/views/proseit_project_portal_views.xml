@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <!-- Inherit the portal home template to add "My Projects" link -->
+    <template id="portal_my_home_link_projects" inherit_id="portal.portal_my_home" customize_show="True" priority="30">
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/proseit/static/img/projects_icon.svg'"/> <!-- Link to projects icon -->
+                <t t-set="title">My Projects</t>
+                <t t-set="url" t-value="'/my/projects'"/>
+                <t t-set="text">View and manage your ongoing projects</t>
+                <t t-set="placeholder_count" t-value="'my_projects_count'"/> <!-- Placeholder count for project items -->
+            </t>
+        </xpath>
+    </template>
+
+<template id="portal_my_projects" name="My Projects">
+    <t t-call="website.layout">
+        <div class="container">
+            <h2>My Projects</h2>
+            <a href="/my/projects/new" class="btn btn-primary mb-3">Add New Project</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Sponsorship Type</th>
+                        <th>Project Type</th>
+                        <th>Visibility</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="projects" t-as="project">
+                        <td><t t-esc="project.title"/></td>
+                        <td><t t-esc="project.sponsorship_type"/></td>
+                        <td><t t-esc="project.project_type"/></td>
+                        <td><t t-esc="project.visibility"/></td>
+                        <td>
+                            <!-- Correct the href by using t-att to safely add the project id -->
+                            <a t-att-href="'/my/projects/edit/' + str(project.id)" class="btn btn-sm btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</template>
+
+
+    <template id="portal_new_project" name="New Project">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>Create New Project</h2>
+                <form action="/my/projects/create" method="POST">
+                    <div class="form-group">
+                        <label for="title">Project Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsorship_type">Sponsorship Type</label>
+                        <select class="form-control" id="sponsorship_type" name="sponsorship_type" required="required">
+                            <option value="funded">Funded</option>
+                            <option value="open_source">Open Source</option>
+                            <option value="csr">Corporate Social Responsibility</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="project_type">Project Type</label>
+                        <select class="form-control" id="project_type" name="project_type" required="required">
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="objective">Objective</label>
+                        <textarea class="form-control" id="objective" name="objective"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="visibility">Visibility</label>
+                        <select class="form-control" id="visibility" name="visibility">
+                            <option value="portal">Visible on ProSEIT Portal</option>
+                            <option value="public">Visible on Public Profile</option>
+                            <option value="private">Private</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_edit_project" name="Edit Project">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>Edit Project</h2>
+                <form t-attf-action="/my/projects/update/#{project.id}" method="POST">
+                    <div class="form-group">
+                        <label for="title">Project Title</label>
+                        <input type="text" class="form-control" id="title" name="title" t-att-value="project.title" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsorship_type">Sponsorship Type</label>
+                        <select class="form-control" id="sponsorship_type" name="sponsorship_type" required="required">
+                            <option t-att-selected="project.sponsorship_type == 'funded'" value="funded">Funded</option>
+                            <option t-att-selected="project.sponsorship_type == 'open_source'" value="open_source">Open Source</option>
+                            <option t-att-selected="project.sponsorship_type == 'csr'" value="csr">Corporate Social Responsibility</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="project_type">Project Type</label>
+                        <select class="form-control" id="project_type" name="project_type" required="required">
+                            <option t-att-selected="project.project_type == 'public'" value="public">Public</option>
+                            <option t-att-selected="project.project_type == 'private'" value="private">Private</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description"><t t-esc="project.description"/></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="objective">Objective</label>
+                        <textarea class="form-control" id="objective" name="objective"><t t-esc="project.objective"/></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="visibility">Visibility</label>
+                        <select class="form-control" id="visibility" name="visibility">
+                            <option t-att-selected="project.visibility == 'portal'" value="portal">Visible on ProSEIT Portal</option>
+                            <option t-att-selected="project.visibility == 'public'" value="public">Visible on Public Profile</option>
+                            <option t-att-selected="project.visibility == 'private'" value="private">Private</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="portal_my_home_link_professional" inherit_id="portal.portal_my_home" customize_show="True" priority="30">
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'../proseit/static/img/professional_profile.svg'"/> <!-- Link to profile icon -->
+                <t t-set="title">My Professional Profile</t>
+                <t t-set="url" t-value="'/my/professional'"/>
+                <t t-set="text">View and update your professional information</t>
+                <t t-set="placeholder_count" t-value="'my_professionals_count'"/> <!-- Placeholder count -->
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_professional_profile" name="My Professional Profile">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h2 class="mb-4">My Professional Profile</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <img src="/web/image/proseit.professional/professional_photos" class="img-fluid rounded-circle" alt="Professional Photo" style="width: 150px; height: 150px;"/>
+                            <h3 class="mt-2"><t t-esc="professional.name"/></h3>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <form action="/my/professional/update" method="post" enctype="multipart/form-data">
+                            <!-- Bio Information -->
+                            <div class="form-group">
+                                <label for="date_of_birth">Date of Birth:</label>
+                                <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" t-att-value="professional.date_of_birth"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="alt_email">Alternative Email:</label>
+                                <input type="email" id="alt_email" name="alt_email" class="form-control" t-att-value="professional.alt_email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="sex">Sex:</label>
+                                <select id="sex" name="sex" class="form-control">
+                                    <option value="male" t-att-selected="professional.sex == 'male'">Male</option>
+                                    <option value="female" t-att-selected="professional.sex == 'female'">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="identification_number">NIN/Passport Number:</label>
+                                <input type="text" id="identification_number" name="identification_number" class="form-control" t-att-value="professional.identification_number"/>
+                            </div>
+
+                            <!-- Professional Information -->
+                            <div class="form-group">
+                                <label for="years_experience">Years of Professional Experience:</label>
+                                <input type="number" id="years_experience" name="years_experience" class="form-control" t-att-value="professional.years_experience"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="committee_of_interest">Committee of Interest:</label>
+                                <select id="committee_of_interest" name="committee_of_interest" class="form-control">
+                                    <option value="software" t-att-selected="professional.committee_of_interest == 'software'">Software Engineers</option>
+                                    <option value="process" t-att-selected="professional.committee_of_interest == 'process'">Process Analysts</option>
+                                    <option value="architects" t-att-selected="professional.committee_of_interest == 'architects'">Architects</option>
+                                </select>
+                            </div>
+
+                            <!-- Financial Information -->
+                            <div class="form-group">
+                                <label for="bank_account">Bank Account Number:</label>
+                                <input type="text" id="bank_account" name="bank_account" class="form-control" t-att-value="professional.bank_account"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile_money_number">Mobile Money Number:</label>
+                                <input type="text" id="mobile_money_number" name="mobile_money_number" class="form-control" t-att-value="professional.mobile_money_number"/>
+                            </div>
+
+                            <!-- Professional Photo Upload -->
+                            <div class="form-group">
+                                <label for="professional_photos">Upload Professional Photo:</label>
+                                <input type="file" id="professional_photos" name="professional_photos" class="form-control-file"/>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

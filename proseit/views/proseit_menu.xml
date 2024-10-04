@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <menuitem id="proseit.menu_root" name="ProSEIT" web_icon="proseit,static/description/ProSEIT.png"/>
+
+        <record id="action_professionals" model="ir.actions.act_window">
+            <field name="name">Professionals</field>
+            <field name="res_model">proseit.professional</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="menu_professional" name="Professionals" parent="proseit.menu_root" action="action_professionals" sequence="10"/>
+
+        <record id="action_clients" model="ir.actions.act_window">
+            <field name="name">Clients</field>
+            <field name="res_model">proseit.client</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="menu_client" name="Clients" parent="proseit.menu_root" action="action_clients" sequence="10"/>
+
+        <record id="action_companies" model="ir.actions.act_window">
+            <field name="name">Companies</field>
+            <field name="res_model">proseit.company</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="menu_company" name="Companies" parent="proseit.menu_root" action="action_companies" sequence="10"/>
+
+        <record id="action_projects" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">proseit.project</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="menu_project" name="Projects" parent="proseit.menu_root" action="action_projects" sequence="10"/>
+
+        <record id="action_jobs" model="ir.actions.act_window">
+            <field name="name">Jobs</field>
+            <field name="res_model">proseit.job.posting</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="menu_job" name="Jobs" parent="proseit.menu_root" action="action_jobs" sequence="10"/>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+proseit.access_proseit_certification,access_proseit_certification,proseit.model_proseit_certification,base.group_user,1,1,1,1
+proseit.access_proseit_education,access_proseit_education,proseit.model_proseit_education,base.group_user,1,1,1,1
+proseit.access_proseit_professional,access_proseit_professional,proseit.model_proseit_professional,base.group_user,1,1,1,1
+proseit.access_proseit_references,access_proseit_references,proseit.model_proseit_references,base.group_user,1,1,1,1
+proseit.access_proseit_skills,access_proseit_skills,proseit.model_proseit_skills,base.group_user,1,1,1,1
+proseit.access_proseit_testimonial,access_proseit_testimonial,proseit.model_proseit_testimonial,base.group_user,1,1,1,1
+proseit.access_proseit_soft_skills,access_proseit_soft_skills,proseit.model_proseit_soft_skills,base.group_user,1,1,1,1
+proseit.access_proseit_feedback,access_proseit_feedback,proseit.model_proseit_feedback,base.group_user,1,1,1,1
+proseit.access_proseit_client,access_proseit_client,proseit.model_proseit_client,base.group_user,1,1,1,1
+proseit.access_proseit_company_testimonial,access_proseit_company_testimonial,proseit.model_proseit_company_testimonial,base.group_user,1,1,1,1
+proseit.access_proseit_company,access_proseit_company,proseit.model_proseit_company,base.group_user,1,1,1,1
+proseit.access_proseit_specialization,access_proseit_specialization,proseit.model_proseit_specialization,base.group_user,1,1,1,1
+proseit.access_proseit_project,access_proseit_project,proseit.model_proseit_project,base.group_user,1,1,1,1
+proseit.access_proseit_job_posting,access_proseit_job_posting,proseit.model_proseit_job_posting,base.group_user,1,1,1,

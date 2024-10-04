@@ -1,0 +1,229 @@
+<odoo>
+
+
+    <!-- Update Professional Kanban View -->
+    <record id="view_professional_kanban" model="ir.ui.view">
+        <field name="name">proseit.professional.kanban</field>
+        <field name="model">proseit.professional</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="approval_status">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_mobile o_res_partner_kanban">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('proseit.professional', 'image_128', record.id.raw_value)"
+                                     alt="Professional Profile"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li t-if="record.email.raw_value" class="o_text_overflow">
+                                        <i class="fa fa-fw me-2 fa-envelope text-primary" title="Email"/>
+                                        <field name="email"/>
+                                    </li>
+                                    <li t-if="record.phone.raw_value" class="o_force_ltr">
+                                        <i class="fa fa-fw me-2 fa-phone text-primary" title="Phone"/>
+                                        <field name="phone"/>
+                                    </li>
+                                </ul>
+                                <div class="mt-1 badge rounded-pill bg-primary text-white" style="">
+                                    Approval Status: <field name="approval_status"/> 
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+        <record id="view_tree_member" model="ir.ui.view">
+            <field name="name">Proseit Professioanl List View</field>
+            <field name="model">proseit.professional</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_of_birth" widget="date"/>
+                    <field name="phone" widget="phone"/>
+                    <field name="email" widget="email" />
+                    <field name="alt_email" widget="email" />
+                    <field name="sex"/>
+                    <field name="identification_number"/>
+                </tree>
+            </field>
+        </record>
+
+    <!-- Update Professional Form View -->
+    <record id="view_professional_form" model="ir.ui.view">
+        <field name="name">proseit.professional.form</field>
+        <field name="model">proseit.professional</field>
+        <field name="arch" type="xml">
+            <form string="Professional Profile">
+                <header position="inside">
+                    <button name="approve_profile" type="object" string="Approve" class="oe_highlight"
+                            invisible="approval_status != 'pending'"/>  
+                    <button name="reject_profile" type="object" string="Reject" class="oe_highlight"
+                            invisible="approval_status != 'pending'"/> 
+                    <field name="approval_status" widget="statusbar" statusbar_visible="pending,approved,rejected"/>
+                </header>
+
+                <sheet>
+                    <field name="image_1920" widget='image' class="oe_avatar m-0" options='{"zoom": true, "preview_image":"avatar_128"}'/>
+                        <div class="oe_title">
+                            <label for="name" string="Professional's Name"/>
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. John Doe"/>
+                                </div>
+                            </h1>
+                        </div>
+                    <group>
+                        <!-- Personal Information -->
+                        <group>
+                            <field name="date_of_birth" widget="date"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="email" widget="email" />
+                            <field name="linkedin_profile" widget="url"/>
+                            <!-- Tags for Categorization (e.g., Professional Tag) -->
+                            <field name="category_id" widget="many2many_tags" readonly="1" />
+                        </group>
+                        <group>
+                            <field name="alt_email" widget="email" />
+                            <field name="sex"/>
+                            <field name="identification_number"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <!-- Professional Details Page -->
+                        <page string="Professional Details">
+                            <group>
+                                <group string="Education">
+                                    <field name="education_ids">
+                                        <tree editable="bottom">
+                                            <field name="institution_name"/>
+                                            <field name="education_level"/>
+                                            <field name="completion_year"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Certifications">
+                                    <field name="certifications_ids">
+                                        <tree editable="bottom">
+                                            <field name="certification_name"/>
+                                            <field name="issuing_organization"/>
+                                            <field name="date_awarded"/>
+                                            <field name="expiration_date"/>
+                                            <field name="certificate_document" widget="binary" filename="certificate_filename"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group>
+                                    <field name="committee_of_interest"/>
+                                    <field name="years_experience"/>
+                                </group>
+                                <group>
+                                    <field name="work_links"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Skills Map Page -->
+                        <page string="Skills Map">
+                            <group>
+                                <field name="technical_skills">
+                                    <tree editable="bottom">
+                                        <field name="skill_name"/>
+                                        <field name="competency_level"/>
+                                    </tree>
+                                </field>
+                                <field name="soft_skills">
+                                    <tree editable="bottom">
+                                        <field name="skill_name"/>
+                                        <field name="competency_level"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- Work Portfolio Page -->
+                        <page string="Work Portfolio">
+                            <group>
+                                <field name="testimonials">
+                                    <tree>
+                                        <field name="description"/>
+                                        <field name="nda"/>
+                                        <field name="public_profile"/>
+                                        <field name="reference_contact"/>
+                                        <field name="certified_by_proseit"/>
+                                        <field name="proficiency"/>
+                                        <field name="collaboration_members"/>
+                                        <field name="verifiable"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="description"/>
+                                            <field name="nda"/>
+                                            <field name="public_profile"/>
+                                        </group>
+                                        <group>
+                                            <field name="reference_contact"/>
+                                            <field name="certified_by_proseit"/>
+                                        </group>
+                                        <group>
+                                            <field name="proficiency"/>
+                                            <field name="collaboration_members"/>
+                                        </group>
+                                        <group>
+                                            <field name="supporting_documents" widget="many2many_binary"/>
+                                            <field name="verifiable"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- Financial Details Page -->
+                        <page string="Financial Details">
+                            <group>
+                            <group>
+                                <field name="bank_account"/>
+                                <field name="mobile_money_number"/>
+                            </group>
+                            <group>
+                                <field name="alternative_payment_channels"/>
+                            </group>
+                            </group>
+                        </page>
+
+                        <!-- Supporting Documents -->
+                        <page string="Supporting Documents">
+                            <field name="supporting_documents" widget="many2many_binary"/>
+                        </page>
+
+                        <!-- Feedback Section -->
+                        <page string="Feedback">
+                            <field name="feedback_ids">
+                                <tree editable="bottom">
+                                    <field name="feedback"/>
+                                    <field name="rating"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user" options="{'post_refresh': 'recipients'}"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>
