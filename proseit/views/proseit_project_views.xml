@@ -1,0 +1,86 @@
+<odoo>
+
+    <record id="view_proseit_project_kanban" model="ir.ui.view">
+        <field name="name">proseit.project.kanban</field>
+        <field name="model">proseit.project</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" >
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_mobile o_res_partner_kanban">
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="title"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li class="o_text_overflow">
+                                        <field name="sponsorship_type"/>
+                                    </li>
+                                    <li >
+                                        <li><field name="project_type"/></li>
+                                    </li>
+                                </ul>
+                                <div class="mt-1 badge rounded-pill bg-primary text-white" style="">
+                                    Visibility: <field name="visibility"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Client List View -->
+    <record id="view_proseit_project_tree" model="ir.ui.view">
+        <field name="name">Proseit Project List View</field>
+        <field name="model">proseit.project</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title"/>
+                <field name="sponsorship_type"/>
+                <field name="project_type"/>
+                <field name="description"/>
+                <field name="objective"/>
+                <field name="visibility"/>
+                <field name="professional_id"/>
+                <field name="collaborator_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Client Form View -->
+    <record id="view_proseit_project_form" model="ir.ui.view">
+        <field name="name">proseit.project.form</field>
+        <field name="model">proseit.project</field>
+        <field name="arch" type="xml">
+            <form string="Professional's Project">
+                <sheet>
+                    <group>
+                    <group>
+                        <field name="title"/>
+                        <field name="sponsorship_type"/>
+                        <field name="project_type"/>
+                        <field name="description"/>
+                    </group>
+                    <group>
+                         <field name="objective"/>
+                        <field name="visibility"/>
+                        <field name="professional_id" options="{'no_create': True}"/>
+                        <field name="collaborator_ids" widget="many2many_tags"/>
+                    </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" options="{'post_refresh': 'recipients'}"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

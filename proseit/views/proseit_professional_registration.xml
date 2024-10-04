@@ -1,0 +1,77 @@
+<odoo>
+    <template id="portal_professional_registration" name="Professional Registration">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>Register as a Professional</h2>
+                <form action="/professional/register/submit" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_of_birth">Date of Birth</label>
+                        <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="alt_email">Alternative Email</label>
+                        <input type="email" name="alt_email" id="alt_email" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" name="phone" id="phone" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="identification_number">NIN/Passport Number</label>
+                        <input type="text" name="identification_number" id="identification_number" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="sex">Gender</label>
+                        <select name="sex" id="sex" class="form-control" required="required">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="years_experience">Years of Experience</label>
+                        <input type="number" name="years_experience" id="years_experience" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="committee_of_interest">Committee of Interest</label>
+                        <select name="committee_of_interest" id="committee_of_interest" class="form-control">
+                            <option value="software">Software Engineers</option>
+                            <option value="process">Process Analysts</option>
+                            <option value="architects">Architects</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bank_account">Bank Account Number</label>
+                        <input type="text" name="bank_account" id="bank_account" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile_money_number">Mobile Money Number</label>
+                        <input type="text" name="mobile_money_number" id="mobile_money_number" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="professional_photos">Upload Professional Photo</label>
+                        <input type="file" name="professional_photos" id="professional_photos" class="form-control"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Registration</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_professional_thankyou" name="Thank You">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>Thank You for Registering!</h2>
+                <p>Your profile is currently under review. You will be notified once it is approved.</p>
+            </div>
+        </t>
+    </template>
+
+</odoo>

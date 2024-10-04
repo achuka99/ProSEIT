@@ -1,0 +1,13 @@
+<odoo>
+    <record id="professional_tag" model="res.partner.category">
+        <field name="name">Professional</field>
+    </record>
+
+    <record id="client_tag" model="res.partner.category">
+        <field name="name">Client</field>
+    </record>
+
+    <record id="company_tag" model="res.partner.category">
+        <field name="name">Company</field>
+    </record>
+</odoo>
