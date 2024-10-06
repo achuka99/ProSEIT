@@ -42,6 +42,11 @@
     'demo': [
         'demo/demo.xml',
     ],
+    'assets': {
+            'web.assets_frontend': [
+                'proseit/static/src/js/preview_image.js',
+            ],
+    },
     'license': 'LGPL-3',
     'installable': True,
     'application': True,

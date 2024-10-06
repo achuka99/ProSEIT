@@ -73,9 +73,16 @@
 
                             <!-- Professional Photo Upload -->
                             <div class="form-group">
-                                <label for="professional_photos">Upload Professional Photo:</label>
-                                <input type="file" id="professional_photos" name="professional_photos" class="form-control-file"/>
+                                <label for="professional_photo">Upload Professional Photo:</label>
+                                <input type="file" id="professional_photo" name="professional_photo" onchange="previewImage(this);" class="form-control-file"/>
                             </div>
+
+                            <div class="form-group" id="image-preview" style="display:none;">
+                                <label for="professional_photo">Image Preview:</label>
+                                <br/>
+                                <img id="image-preview-tag" class="img-thumbnail" style="max-width: 200px;"/>
+                            </div>
+                                    
 
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-primary">Update Profile</button>
