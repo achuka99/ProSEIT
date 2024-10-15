@@ -20,6 +20,7 @@ class ProseitProfessional(models.Model):
     certifications_ids = fields.One2many('proseit.certification', 'professional_id', string="Professional Certifications")
     professional_photos = fields.Binary('Professional Photos', required=True)
     work_links = fields.Text('Links to Professional Work')
+    specializations = fields.Text('Professional specializations')
     committee_of_interest = fields.Selection(
         [('software', 'Software Engineers'), 
          ('process', 'Process Analysts'), 
