@@ -130,6 +130,7 @@
                                 </group>
                                 <group>
                                     <field name="work_links"/>
+                                    <field name="specializations"/>
                                 </group>
                             </group>
                         </page>
