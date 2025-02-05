@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="index" name="ProSEIT Homepage">
+        <t t-call="website.layout">
+            <div class="container-fluid px-0">
+                <!-- Base Styles -->
+                <style>
+                    :root {
+                        --primary-color: #004c97;
+                        --secondary-color: #ff9900;
+                        --accent-color: #2a94b2;
+                        --text-color: #333;
+                    }
+
+                    /* Hero Section */
+                    .hero-section {
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                        padding: 6rem 0;
+                        position: relative;
+                        overflow: hidden;
+                        margin-bottom: 4rem;
+                    }
+
+                    .hero-section::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -50px;
+                        left: 0;
+                        right: 0;
+                        height: 100px;
+                        background: white;
+                        transform: skewY(-3deg);
+                    }
+
+                    .hero-content {
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    .hero-title {
+                        color: white;
+                        font-size: 3.5rem;
+                        font-weight: 700;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .hero-text {
+                        color: rgba(255, 255, 255, 0.9);
+                        font-size: 1.2rem;
+                        margin-bottom: 2rem;
+                    }
+
+                    /* About Section */
+                    .about-section {
+                        background: #f8f9fa;
+                        padding: 4rem 0;
+                    }
+
+                    .about-title {
+                        color: var(--primary-color);
+                        font-weight: 600;
+                        margin-bottom: 1rem;
+                    }
+
+                    .about-text {
+                        font-size: 1.2rem;
+                        color: var(--text-color);
+                        margin-bottom: 2rem;
+                    }
+
+                    /* Values Section */
+                    .value-card {
+                        background: white;
+                        border-radius: 8px;
+                        padding: 2rem;
+                        transition: all 0.3s ease;
+                        border: 1px solid #e0e0e0;
+                        height: 100%;
+                    }
+
+                    .value-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .value-icon {
+                        font-size: 2.5rem;
+                        color: var(--primary-color);
+                        margin-bottom: 1rem;
+                    }
+
+                    /* Contact Section */
+                    .contact-section {
+                        background: #004c97;
+                        color: white;
+                        padding: 4rem 0;
+                        margin-top: 4rem;
+                    }
+
+                    .cta-button {
+                        background-color: var(--primary-color);
+                        color: white;
+                        padding: 0.75rem 2rem;
+                        border-radius: 25px;
+                        font-weight: 500;
+                        transition: all 0.2s ease;
+                        display: inline-block;
+                        text-decoration: none;
+                    }
+
+                    .cta-button:hover {
+                        background-color: var(--secondary-color);
+                        transform: translateY(-1px);
+                    }
+
+                                        .events-section {
+                        padding: 4rem 0;
+                        background: #f8f9fa;
+                    }
+                    
+                    .event-card {
+                        background: white;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                        margin-bottom: 1.5rem;
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .event-card:hover {
+                        transform: translateY(-5px);
+                    }
+                    
+                    .event-date {
+                        background: var(--primary-color);
+                        color: white;
+                        padding: 0.5rem;
+                        text-align: center;
+                        font-weight: 600;
+                    }
+                    
+                    .event-content {
+                        padding: 1.5rem;
+                    }
+                    
+                    /* Partners Section Styles */
+                    .partners-section {
+                        padding: 4rem 0;
+                        background: white;
+                        overflow: hidden;
+                    }
+                    
+                    .partners-slider {
+                        display: flex;
+                        animation: slidePartners 30s linear infinite;
+                        width: max-content;
+                    }
+                    
+                    .partner-logo {
+                        width: 200px;
+                        height: 100px;
+                        margin: 0 2rem;
+                        object-fit: contain;
+                        transition: filter 0.3s ease;
+                    }
+                    
+                    .partner-logo:hover {
+                        filter: grayscale(0%);
+                    }
+                    
+                    @keyframes slidePartners {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                    }
+
+                    /* User Journey Section */
+                    .journey-section {
+                        padding: 4rem 0;
+                        background: #f8f9fa;
+                    }
+
+                    .journey-card {
+                        padding: 2rem;
+                        border-radius: 8px;
+                        background: white;
+                        height: 100%;
+                        transition: all 0.3s ease;
+                    }
+
+                    .journey-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .journey-icon {
+                        font-size: 2.5rem;
+                        color: var(--primary-color);
+                        margin-bottom: 1rem;
+                    }
+
+                    /* Digital Pioneers Section */
+                    .pioneers-section {
+                        background: linear-gradient(rgba(0, 76, 151, 0.9), rgba(0, 76, 151, 0.9)),
+                                    url('/web/image/website.digital_pioneers_bg');
+                        color: white;
+                        padding: 6rem 0;
+                        position: relative;
+                    }
+
+                    /* Member Stories Section */
+                    .member-story {
+                        background: white;
+                        border-radius: 8px;
+                        padding: 2rem;
+                        margin-bottom: 2rem;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .member-quote {
+                        font-style: italic;
+                        font-size: 1.1rem;
+                        color: #666;
+                        margin: 1rem 0;
+                    }
+
+                    /* News Section */
+                    .news-card {
+                        background: white;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        margin-bottom: 2rem;
+                    }
+
+                    .news-tag {
+                        display: inline-block;
+                        padding: 0.25rem 1rem;
+                        background: var(--secondary-color);
+                        color: white;
+                        border-radius: 4px;
+                        font-size: 0.9rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    .news-image {
+                        width: 100%;
+                        height: 200px;
+                        object-fit: cover;
+                    }
+
+                                    /* Quick Links Bar */
+                .quick-links-bar {
+                    background: var(--primary-color);
+                    padding: 0.5rem 0;
+                    position: sticky;
+                    top: 0;
+                    z-index: 1000;
+                }
+
+                .quick-link {
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    font-size: 0.9rem;
+                    text-decoration: none;
+                }
+
+                /* Stats Counter */
+                .stats-counter {
+                    background: linear-gradient(135deg, #004c97, #2a94b2);
+                    color: white;
+                    padding: 4rem 0;
+                }
+
+                .stat-item {
+                    text-align: center;
+                    padding: 1rem;
+                }
+
+                .stat-number {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    margin-bottom: 0.5rem;
+                }
+
+                /* Certification Badges */
+                .certification-badges {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    justify-content: center;
+                    padding: 2rem 0;
+                }
+
+                .badge-item {
+                    width: 150px;
+                    text-align: center;
+                }
+
+                /* Emergency Banner */
+                .emergency-banner {
+                    background: #ff9900;
+                    color: white;
+                    padding: 0.75rem;
+                    text-align: center;
+                    display: none; /* Show dynamically when needed */
+                }
+                </style>
+
+
+
+                        <!-- Hero Section with Enhanced Content -->
+            <section class="hero-section">
+                <div class="container hero-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="hero-title">
+                                <t t-esc="website.company_id.name"/>
+                            </h1>
+                            <p class="hero-text">Setting the Gold Standard in IT Professional Excellence</p>
+                            <div class="hero-buttons">
+                                <a href="/membership" class="cta-button me-3">Become a Member</a>
+                                <a href="#about" class="cta-button cta-button-outline">Discover Benefits</a>
+                            </div>
+                            <div class="hero-stats mt-4">
+                                <div class="row text-white">
+                                    <div class="col-4">
+                                        <div class="stat-small">
+                                            <strong>50,000+</strong>
+                                            <span>Members</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="stat-small">
+                                            <strong>25+</strong>
+                                            <span>Years</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="stat-small">
+                                            <strong>100+</strong>
+                                            <span>Countries</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="hero-image-container">
+                                <img src="/proseit/static/img/file.png" 
+                                     alt="IT Professionals at Work" 
+                                     class="img-fluid rounded hero-image"/>
+                                <!-- <div class="accreditation-badges">
+                                    <img src="/web/image/iso_badge" alt="ISO Certified" class="badge-small"/>
+                                    <img src="/web/image/quality_badge" alt="Quality Assured" class="badge-small"/>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                <section class="journey-section">
+                    <div class="container">
+                        <h2 class="text-center mb-5">Something for...</h2>
+                        <div class="row g-4">
+                            <div class="col-md-3">
+                                <div class="journey-card">
+                                    <i class="fa fa-user journey-icon"></i>
+                                    <h3>Individuals</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-3"><a href="#">Membership →</a></li>
+                                        <li class="mb-3"><a href="#">Qualifications →</a></li>
+                                        <li class="mb-3"><a href="#">Community →</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="journey-card">
+                                    <i class="fa fa-building journey-icon"></i>
+                                    <h3>Organisations</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-3"><a href="#">Membership →</a></li>
+                                        <li class="mb-3"><a href="#">Approved Organisations →</a></li>
+                                        <li class="mb-3"><a href="#">RoleModelplus →</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="journey-card">
+                                    <i class="fa fa-globe journey-icon"></i>
+                                    <h3>Government</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-3"><a href="#">Policy →</a></li>
+                                        <li class="mb-3"><a href="#">Expert opinion →</a></li>
+                                        <li class="mb-3"><a href="#">Events →</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="journey-card">
+                                    <i class="fa fa-graduation-cap journey-icon"></i>
+                                    <h3>Training providers</h3>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-3"><a href="#">Apprenticeships →</a></li>
+                                        <li class="mb-3"><a href="#">Certification →</a></li>
+                                        <li class="mb-3"><a href="#">Digital skills →</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Digital Pioneers Section (inspired by Image 1) -->
+                <section class="pioneers-section">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <h2 class="mb-4">Digital Pioneers: Recoding our Future</h2>
+                                <p class="mb-4">We've partnered with industry leaders to produce a thought-provoking digital series exploring the tech industry's vital contribution to key societal challenges.</p>
+                                <a href="#" class="cta-button">Explore the Digital Series →</a>
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="/web/image/website.pioneers_preview" alt="Digital Pioneers Preview" class="img-fluid rounded"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Member Stories Section (inspired by Image 3) -->
+                <section class="container py-5">
+                    <h2 class="text-center mb-5">Member Stories</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="member-story">
+                                <span class="h5">01. Cameron</span>
+                                <p class="text-muted">Digital apprentice</p>
+                                <p class="member-quote">"A lot of people think IT is very office-based and involves sitting at computers, in front of a monitor - that's definitely not the case. We are constantly out on sites and being hands-on plugging things in - the job is also a combination of the physical and the technical."</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="member-story">
+                                <span class="h5">02. Kristel</span>
+                                <p class="text-muted">Software Engineer</p>
+                                <p class="member-quote">"Being part of ProSEIT has opened doors to incredible learning opportunities and a network of passionate professionals."</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="member-story">
+                                <span class="h5">03. Paul</span>
+                                <p class="text-muted">IT Consultant</p>
+                                <p class="member-quote">"The certification programs have been instrumental in advancing my career and keeping my skills current."</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- News and Insights Section (inspired by Image 3) -->
+                <section class="container py-5">
+                    <h2 class="text-center mb-5">Latest News &amp; Insights</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="news-card">
+                                <img src="/web/image/website.news1" alt="AI in Education" class="news-image"/>
+                                <div class="p-4">
+                                    <span class="news-tag">BCS COMMENT</span>
+                                    <h4>Most teachers reluctant to use AI for learning and assessment, new research finds</h4>
+                                    <p>The majority of teachers (64%) are not using ChatGPT professionally, including 19% who are 'not interested' in using AI anytime in the future, according to a new study.</p>
+                                    <a href="#" class="cta-button">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="news-card">
+                                <img src="/web/image/website.news2" alt="Skills England" class="news-image"/>
+                                <div class="p-4">
+                                    <span class="news-tag">INTERVIEW</span>
+                                    <h4>Skills England: What it means for skills and apprenticeships</h4>
+                                    <p>Exploring the impact of new policies on IT education and professional development.</p>
+                                    <a href="#" class="cta-button">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="news-card">
+                                <img src="/web/image/website.news3" alt="Quantum Computing" class="news-image"/>
+                                <div class="p-4">
+                                    <span class="news-tag">ARTICLE</span>
+                                    <h4>How will quantum impact cryptography?</h4>
+                                    <p>Examining the future of security in a quantum computing world.</p>
+                                    <a href="#" class="cta-button">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- About Section -->
+                <section class="about-section" id="about">
+                    <div class="container text-center">
+                        <h2 class="about-title">About ProSEIT</h2>
+                        <p class="about-text">ProSEIT is the premier professional body for Software Engineers and IT Practitioners, committed to promoting high standards, ethical practice, and professional development in the technology industry.</p>
+                    </div>
+                </section>
+
+                <!-- Values Section -->
+                <section class="container py-5">
+                    <div class="text-center mb-5">
+                        <h2 class="section-title">Our Values</h2>
+                        <p class="section-subtitle">What Drives Us</p>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="value-card text-center">
+                                <i class="fa fa-star value-icon"/>
+                                <h3>Excellence</h3>
+                                <p>Striving for the highest quality in everything we do</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="value-card text-center">
+                                <i class="fa fa-gavel value-icon"/>
+                                <h3>Ethics</h3>
+                                <p>Upholding the highest ethical standards in IT practice</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="value-card text-center">
+                                <i class="fa fa-cogs value-icon"/>
+                                <h3>Innovation</h3>
+                                <p>Encouraging innovation and continuous improvement</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Upcoming Events with Rich Details -->
+            <section class="events-section py-5">
+                <div class="container">
+                    <h2 class="section-title text-center mb-5">Upcoming Professional Events</h2>
+                    <div class="row g-4">
+                        <!-- Conference -->
+                        <div class="col-md-4">
+                            <div class="event-card">
+                                <div class="event-banner">
+                                    <span class="event-type">Conference</span>
+                                    <div class="event-date">
+                                        <span class="day">15</span>
+                                        <span class="month">MAR</span>
+                                    </div>
+                                </div>
+                                <div class="event-content">
+                                    <h4>Future of Tech Summit 2025</h4>
+                                    <div class="event-details">
+                                        <p class="location"><i class="fa fa-map-marker-alt"></i> London Tech Hub</p>
+                                        <p class="time"><i class="fa fa-clock"></i> 9:00 AM - 5:00 PM</p>
+                                    </div>
+                                    <div class="event-highlights">
+                                        <ul>
+                                            <li>Keynote: AI in Enterprise</li>
+                                            <li>Panel: Future of Work</li>
+                                            <li>Workshop: Cloud Native Apps</li>
+                                        </ul>
+                                    </div>
+                                    <div class="event-actions">
+                                        <a href="/events/tech-summit" class="cta-button">Register Now</a>
+                                        <span class="price">£299 | Members: £199</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Workshop -->
+                        <div class="col-md-4">
+                            <div class="event-card">
+                                <div class="event-banner">
+                                    <span class="event-type">Workshop</span>
+                                    <div class="event-date">
+                                        <span class="day">22</span>
+                                        <span class="month">MAR</span>
+                                    </div>
+                                </div>
+                                <div class="event-content">
+                                    <h4>Secure Coding Practices</h4>
+                                    <div class="event-details">
+                                        <p class="location"><i class="fa fa-map-marker-alt"></i> Virtual Event</p>
+                                        <p class="time"><i class="fa fa-clock"></i> 2:00 PM - 5:00 PM</p>
+                                    </div>
+                                    <div class="event-highlights">
+                                        <ul>
+                                            <li>OWASP Top 10 Review</li>
+                                            <li>Hands-on Security Testing</li>
+                                            <li>Code Review Techniques</li>
+                                        </ul>
+                                    </div>
+                                    <div class="event-actions">
+                                        <a href="/events/secure-coding" class="cta-button">Register Now</a>
+                                        <span class="price">£149 | Members: £99</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Webinar -->
+                        <div class="col-md-4">
+                            <div class="event-card">
+                                <div class="event-banner">
+                                    <span class="event-type">Webinar</span>
+                                    <div class="event-date">
+                                        <span class="day">28</span>
+                                        <span class="month">MAR</span>
+                                    </div>
+                                </div>
+                                <div class="event-content">
+                                    <h4>Quantum Computing Impact</h4>
+                                    <div class="event-details">
+                                        <p class="location"><i class="fa fa-map-marker-alt"></i> Online</p>
+                                        <p class="time"><i class="fa fa-clock"></i> 6:00 PM - 7:30 PM</p>
+                                    </div>
+                                    <div class="event-highlights">
+                                        <ul>
+                                            <li>State of Quantum Tech</li>
+                                            <li>Business Applications</li>
+                                            <li>Future Implications</li>
+                                        </ul>
+                                    </div>
+                                    <div class="event-actions">
+                                        <a href="/events/quantum-webinar" class="cta-button">Register Now</a>
+                                        <span class="price">Free for Members</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </section>
+
+                <!-- Partners Section -->
+                <section class="partners-section">
+                    <div class="container">
+                        <div class="text-center mb-5">
+                            <h2 class="section-title">Our Partners</h2>
+                            <p class="section-subtitle">Working Together for Excellence in IT</p>
+                        </div>
+                        <div class="partners-slider">
+                                <img src="proseit/static/img/psfu-logo.png" alt="Partner Logo"
+                                     class="partner-logo"/>
+                                     <img src="proseit/static/img/psfu-logo.png" alt="Partner Logo"
+                                     class="partner-logo"/>
+                                     <img src="proseit/static/img/psfu-logo.png" alt="Partner Logo"
+                                     class="partner-logo"/>
+                                     <img src="proseit/static/img/psfu-logo.png" alt="Partner Logo"
+                                     class="partner-logo"/>
+                                     <img src="proseit/static/img/psfu-logo.png" alt="Partner Logo"
+                                     class="partner-logo"/>
+                                     <img src="proseit/static/img/psfu-logo.png" alt="Partner Logo"
+                                     class="partner-logo"/>
+                        
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- Contact Section -->
+                <section class="contact-section" id="contact">
+                    <div class="container text-center">
+                        <h2 class="section-title">Get Involved with ProSEIT</h2>
+                        <p class="section-subtitle">Join us in shaping the future of IT and Software Engineering</p>
+                        <a href="/contactus" class="cta-button">Contact Us</a>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

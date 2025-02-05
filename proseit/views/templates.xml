@@ -1,101 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="portal_professional_registration" name="Professional Registration">
         <t t-call="website.layout">
-            <div class="container">
-                <h2 class="text-center">Register as a Professional</h2>
-                
-                <!-- Registration Steps -->
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="registration-progress" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Step 1 of 3</div>
+            <div class="professional-registration">
+                <style>
+                    /* Base styles */
+                    .professional-registration {
+                        --primary-color: #b6a909;
+                        --secondary-color: #3a3636;
+                        --accent-color: #E74C3C;
+                        --light-gray: #F8F9FA;
+                    }
+
+                    /* Split layout styles */
+                    .registration-container {
+                        display: flex;
+                        min-height: 100vh;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    .left-section {
+                        flex: 1;
+                        background-color: #0066ff;
+                        padding: 4rem;
+                        color: white;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        position: sticky;
+                        top: 0;
+                        height: 100vh;
+                    }
+
+                    .right-section {
+                        flex: 1;
+                        padding: 4rem;
+                        background-color: white;
+                        overflow-y: auto;
+                    }
+
+                    .logo {
+                        max-width: 200px;
+                        margin-bottom: 2rem;
+                    }
+
+                    .hero-title {
+                        font-size: 2.5rem;
+                        font-weight: bold;
+                        margin-bottom: 1.5rem;
+                        line-height: 1.2;
+                    }
+
+                    .hero-subtitle {
+                        font-size: 1.1rem;
+                        opacity: 0.9;
+                        margin-bottom: 2rem;
+                    }
+
+                    /* Form styles */
+                    .professional-registration .container {
+                        max-width: 100%;
+                        padding: 0;
+                        margin: 0;
+                        box-shadow: none;
+                    }
+
+                    .professional-registration h2 {
+                        color: var(--primary-color);
+                        font-weight: 700;
+                        margin-bottom: 2rem;
+                        position: relative;
+                        padding-bottom: 10px;
+                    }
+
+                    .professional-registration h2:after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 100px;
+                        height: 3px;
+                        background: var(--secondary-color);
+                    }
+
+                    .professional-registration h3 {
+                        color: var(--secondary-color);
+                        font-size: 1.5rem;
+                        margin: 2rem 0 1.5rem;
+                        font-weight: 600;
+                    }
+
+                    .professional-registration .progress {
+                        height: 10px;
+                        margin: 2rem 0;
+                        border-radius: 5px;
+                        background-color: var(--light-gray);
+                    }
+
+                    .professional-registration .progress-bar {
+                        background-color: var(--secondary-color);
+                    }
+
+                    .professional-registration .form-group {
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .professional-registration .form-control {
+                        border: 2px solid #E0E0E0;
+                        border-radius: 5px;
+                        padding: 0.75rem;
+                        transition: all 0.3s ease;
+                    }
+
+                    .professional-registration .form-control:focus {
+                        border-color: var(--secondary-color);
+                        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+                    }
+
+                    .professional-registration label {
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        color: var(--primary-color);
+                    }
+
+                    .professional-registration .btn {
+                        padding: 0.75rem 2rem;
+                        border-radius: 5px;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    }
+
+                    .professional-registration .btn-primary {
+                        background-color: var(--secondary-color);
+                        border-color: var(--secondary-color);
+                    }
+
+                    .professional-registration .btn-primary:hover {
+                        background-color: #b6a909;
+                        border-color: #b6a909;
+                    }
+
+                    .professional-registration .table {
+                        margin-top: 1.5rem;
+                        background: white;
+                        border-radius: 5px;
+                    }
+
+                    .professional-registration .modal-content {
+                        border-radius: 10px;
+                        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                    }
+
+                    .professional-registration #image-preview-tag {
+                        border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                    }
+
+                    /* Responsive design */
+                    @media (max-width: 768px) {
+                        .registration-container {
+                            flex-direction: column;
+                        }
+                        
+                        .left-section {
+                            padding: 2rem;
+                            min-height: 400px;
+                            position: relative;
+                            height: auto;
+                        }
+                        
+                        .right-section {
+                            padding: 2rem;
+                        }
+                    }
+                </style>
+
+                <div class="registration-container">
+                    <!-- Left section with brand message -->
+                    <div class="left-section">
+                        <img src="/web/image/website.business-website-logo" alt="Logo" class="logo"/>
+                        <h1 class="hero-title">We make digital products that drive you to stand out.</h1>
+                        <p class="hero-subtitle">We write words, take photos, make videos, and interact with artificial intelligence.</p>
+                    </div>
+
+                    <!-- Right section with registration form -->
+                    <div class="right-section">
+                        <h2 class="text-center">Register as a Professional</h2>
+                        
+                        <!-- Progress bar -->
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="registration-progress" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Step 1 of 3</div>
+                        </div>
+
+                        <!-- Multi-Step Form -->
+                        <form id="professional-registration-form" action="/professional/register/submit" method="post" enctype="multipart/form-data">
+                            <!-- Step 1: Personal Information -->
+                            <div class="form-step" id="step-1">
+                                <h3>Step 1: Bio Information</h3>
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_of_birth">Date of Birth</label>
+                                    <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alt_email">Alternative Email</label>
+                                    <input type="email" name="alt_email" id="alt_email" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" name="phone" id="phone" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sex">Gender</label>
+                                    <select name="sex" id="sex" class="form-control" required="required">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="identification_number">NIN/Passport Number</label>
+                                    <input type="text" name="identification_number" id="identification_number" class="form-control" required="required"/>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-4 mb-4" onclick="nextStep(2)">Next</button>
+                            </div>
+
+                            <!-- Step 2: Professional Information -->
+                            [Previous Step 2 Content]
+
+                            <!-- Step 3: Skills -->
+                            [Previous Step 3 Content]
+                        </form>
+                    </div>
                 </div>
-
-                <!-- Multi-Step Form -->
-                <form id="professional-registration-form" action="/professional/register/submit" method="post" enctype="multipart/form-data">
-                    <!-- Step 1: Personal Information -->
-                    <div class="form-step" id="step-1">
-                        <h3>Step 1: Personal Information</h3>
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" name="name" id="name" class="form-control" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="date_of_birth">Date of Birth</label>
-                            <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" class="form-control" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="alt_email">Alternative Email</label>
-                            <input type="email" name="alt_email" id="alt_email" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="tel" name="phone" id="phone" class="form-control" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="sex">Gender</label>
-                            <select name="sex" id="sex" class="form-control" required="required">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next</button>
-                    </div>
-
-                    <!-- Step 2: Professional Information -->
-                    <div class="form-step" id="step-2" style="display:none;">
-                        <h3>Step 2: Professional Information</h3>
-                        <div class="form-group">
-                            <label for="identification_number">NIN/Passport Number</label>
-                            <input type="text" name="identification_number" id="identification_number" class="form-control" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="years_experience">Years of Experience</label>
-                            <input type="number" name="years_experience" id="years_experience" class="form-control" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="committee_of_interest">Committee of Interest</label>
-                            <select name="committee_of_interest" id="committee_of_interest" class="form-control">
-                                <option value="software">Software Engineers</option>
-                                <option value="process">Process Analysts</option>
-                                <option value="architects">Architects</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="bank_account">Bank Account Number</label>
-                            <input type="text" name="bank_account" id="bank_account" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="mobile_money_number">Mobile Money Number</label>
-                            <input type="text" name="mobile_money_number" id="mobile_money_number" class="form-control"/>
-                        </div>
-                        <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Back</button>
-                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next</button>
-                    </div>
-
-                    <!-- Step 3: Photo Upload -->
-                    <div class="form-step" id="step-3" style="display:none;">
-                        <h3>Step 3: Upload Professional Photo</h3>
-                        <div class="form-group">
-                            <label for="professional_photo">Upload Professional Photo:</label>
-                            <input type="file" id="professional_photo" name="professional_photo" onchange="previewImage(this);" class="form-control-file"/>
-                        </div>
-                        <div class="form-group" id="image-preview" style="display:none;">
-                            <label for="professional_photo">Image Preview:</label>
-                            <br/>
-                            <img id="image-preview-tag" class="img-thumbnail" style="max-width: 200px;"/>
-                        </div>
-                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Back</button>
-                        <button type="button" class="btn btn-success" onclick="submitForm()">Submit Registration</button>
-                    </div>
-                </form>
             </div>
-
         </t>
     </template>
 
+    <!-- Thank you template -->
     <template id="portal_professional_thankyou" name="Thank You">
         <t t-call="website.layout">
             <div class="container text-center">

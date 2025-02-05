@@ -40,6 +40,7 @@ function addEducationEntry() {
     const institution = document.getElementById('modal_institution').value;
     const educationLevel = document.getElementById('modal_education_level').value;
     const yearCompleted = document.getElementById('modal_year_completed').value;
+    const startYear = document.getElementById("modal_start_year").value;
 
     // Validate inputs
     if (!institution || !educationLevel || !yearCompleted) {
@@ -55,6 +56,7 @@ function addEducationEntry() {
     newRow.innerHTML = `
         <td>${institution}</td>
         <td>${educationLevel}</td>
+        <td>${startYear}</td>
         <td>${yearCompleted}</td>
         <td>
             <button type="button" class="btn btn-danger" onclick="removeEducationEntry(${educationCounter})">Remove</button>
@@ -66,6 +68,7 @@ function addEducationEntry() {
     // Store education entry in the object
     educationEntries[`institution_${educationCounter}`] = institution;
     educationEntries[`level_${educationCounter}`] = educationLevel;
+    educationEntries[`start_year_${educationCounter}`] = startYear;
     educationEntries[`year_${educationCounter}`] = yearCompleted;
 
     // Increment counter for next entry
@@ -74,6 +77,7 @@ function addEducationEntry() {
     // Clear modal inputs
     document.getElementById('modal_institution').value = '';
     document.getElementById('modal_education_level').value = '';
+    document.getElementById('modal_start_year').value = '';
     document.getElementById('modal_year_completed').value = '';
 
     // Close the modal
@@ -91,6 +95,7 @@ function removeEducationEntry(index) {
     // Remove the entry from the educationEntries object
     delete educationEntries[`institution_${index}`];
     delete educationEntries[`level_${index}`];
+    delete educationEntries[`start_year_${index}`];
     delete educationEntries[`year_${index}`];
 }
 
@@ -102,8 +107,11 @@ let certificationEntries = {};
 function addCertificationEntry() {
     const certificationName = document.getElementById('modal_certification_name').value;
     const issuingOrganization = document.getElementById('modal_issuing_organization').value;
+    const certificationType = document.getElementById('modal_certification_type').value; 
     const dateAwarded = document.getElementById('modal_date_awarded').value;
     const expirationDate = document.getElementById('modal_expiration_date').value;
+    const certificationNumber = document.getElementById('modal_certification_number').value;
+    const CertificationCompetencyLevel = document.getElementById('modal_certification_competency').value;
 
     // Validate inputs
     if (!certificationName || !issuingOrganization) {
@@ -119,8 +127,11 @@ function addCertificationEntry() {
     newRow.innerHTML = `
         <td>${certificationName}</td>
         <td>${issuingOrganization}</td>
+        <td>${certificationType}</td> <!-- Display selected type -->
         <td>${dateAwarded || 'N/A'}</td>
         <td>${expirationDate || 'N/A'}</td>
+        <td>${certificationNumber}</td>
+        <td>${CertificationCompetencyLevel}</td>
         <td>
             <button type="button" class="btn btn-danger" onclick="removeCertificationEntry(${certificationCounter})">Remove</button>
         </td>
@@ -132,8 +143,11 @@ function addCertificationEntry() {
     certificationEntries[`certification_${certificationCounter}`] = {
         name: certificationName,
         organization: issuingOrganization,
+        type: certificationType,
         awarded: dateAwarded,
-        expiration: expirationDate
+        expiration: expirationDate,
+        certification_number: certificationNumber,
+        competency_level: CertificationCompetencyLevel
     };
 
     // Increment counter for next entry
@@ -142,8 +156,11 @@ function addCertificationEntry() {
     // Clear modal inputs
     document.getElementById('modal_certification_name').value = '';
     document.getElementById('modal_issuing_organization').value = '';
+    document.getElementById('modal_certification_type').value = '';
     document.getElementById('modal_date_awarded').value = '';
     document.getElementById('modal_expiration_date').value = '';
+    document.getElementById('modal_certification_number').value = '';
+    document.getElementById('modal_certification_competency').value = '';
 
     // Close the modal
     $('#certificationModal').modal('hide');

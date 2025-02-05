@@ -13,3 +13,23 @@ class ProseitCertification(models.Model):
     # Binary field for the certificate document (image/pdf)
     certificate_document = fields.Binary('Certificate Document')
     certificate_filename = fields.Char('Certificate Filename')  # To store the filename for downloads
+
+    # Updated selection field for type of certification
+    type_of_certification = fields.Selection([
+        ('professional', 'Professional Certification'),
+        ('attendance', 'Certificate of Attendance'),
+        ('completion', 'Certificate of Completion'),
+        ('operational', 'Certificate of Operation'),
+        ('other', 'Other'),
+    ], string='Type of Certification', required=True)
+
+    # Certification Number
+    certification_number = fields.Char('Certification Number')
+
+    # Competency Level
+    competency_level = fields.Selection([
+        ('beginner', 'Beginner'),
+        ('intermediate', 'Intermediate'),
+        ('advanced', 'Advanced'),
+        ('expert', 'Expert')
+    ], string='Competency Level', required=True)

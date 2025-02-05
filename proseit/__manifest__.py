@@ -19,14 +19,21 @@
 
     # any module necessary for this one to work correctly
     'depends': [
-                'portal',    
+                'portal',   
                 'mail',
+                'website'
                 ],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'data/res_partner_category_data.xml',
+        'views/navbar_template.xml',
+        'views/about_template.xml',
+        'views/homepage_template.xml',
+        'views/registration_choice_template.xml',
+        'views/professionals_details_template.xml',
+        'views/professionals_listing_template.xml',
         'views/proseit_job_portal_views.xml',
         'views/proseit_job_posting_views.xml',
         'views/proseit_project_views.xml',

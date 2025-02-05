@@ -11,12 +11,21 @@ class ProseitEducation(models.Model):
     # Education Details
     institution_name = fields.Char(required=True, string='Institution Name')
     education_level = fields.Selection([
-        ('a_level', 'A-Level'), 
-        ('o_level', 'O-Level'), 
-        ('university', 'University/Tertiary')
+        ('o_level', 'O-Level'),
+        ('gcse', 'GCSE'),
+        ('gse', 'GSE'),
+        ('a_level', 'A-Level'),
+        ('ordinary_certificate', 'Ordinary Certificate'),
+        ('ordinary_diploma', 'Ordinary Diploma'),
+        ('bachelors', 'Bachelors Degree'),
+        ('masters', 'Masters Degree'),
+        ('phd', 'PhD'),
+        ('others', 'Others')
     ], required=True, string='Education Level')
+
+    start_year = fields.Date(required=True, string='Start Date')
     
-    completion_year = fields.Char(required=True, string='Year of Completion')
+    completion_year = fields.Date(required=True, string='Completion Date')
 
     # Override name_get to display the institution name
     def name_get(self):

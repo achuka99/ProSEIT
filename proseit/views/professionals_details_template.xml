@@ -3,16 +3,25 @@
         <t t-call="website.layout">
             <div class="container-fluid p-0">
                 <style>
-                    /* Background and Banner */
+
+                  :root {
+                        --primary-color: #004c97;
+                        --secondary-color: rgb(216, 169, 13);
+                        --accent-color: #2a94b2;
+                        --text-color: #333;
+                    }
+
+                     /* Banner */
                     .profile-banner {
-                        height: 200px;
-                        background: linear-gradient(135deg, #dab539, #012a5a);
+                        height: 300px;
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
                         position: relative;
+                        overflow: hidden;
                     }
 
                     /* Main Profile Section */
                     .profile-main {
-                        background-color: #f3f2ef;
+                        background-color: #f8f9fa;
                         min-height: calc(100vh - 200px);
                         padding-bottom: 3rem;
                     }

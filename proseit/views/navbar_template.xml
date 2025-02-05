@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit from the base website layout -->
+    <template id="professional_layout" inherit_id="website.layout" name="Professional Layout">
+        <!-- Replace the default header -->
+        <xpath expr="//header" position="replace">
+            <header>
+                <nav class="custom-navbar">
+                    <div class="navbar-container">
+                        <!-- Brand/Logo -->
+                        <a href="/" class="navbar-brand">
+                            <img src="/web/binary/company_logo" alt="Logo" t-att-title="res_company.name"/>
+                        </a>
+
+                        <!-- Mega Menu Section -->
+                        <div class="mega-menu-wrapper">
+                            <ul class="mega-menu">
+                                <li class="mega-item">
+                                    <a href="/" class="nav-link">Home</a>
+                                </li>
+                                <li class="mega-item dropdown">
+                                    <a href="javascript:void(0)" class="nav-link">Services <i class="fa fa-caret-down"></i></a>
+                                    <div class="dropdown-content">
+                                        <div class="dropdown-column">
+                                            <h4>Consulting</h4>
+                                            <a href="/services/consulting">Strategy Consulting</a>
+                                            <a href="/services/analysis">Business Analysis</a>
+                                        </div>
+                                        <div class="dropdown-column">
+                                            <h4>Development</h4>
+                                            <a href="/services/web-development">Web Development</a>
+                                            <a href="/services/mobile">Mobile Apps</a>
+                                        </div>
+                                        <div class="dropdown-column">
+                                            <h4>Design</h4>
+                                            <a href="/services/branding">Branding</a>
+                                            <a href="/services/ui-ux">UI/UX</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mega-item">
+                                    <a href="/professionals" class="nav-link">Professionals</a>
+                                </li>
+                                <li class="mega-item">
+                                    <a href="/about" class="nav-link">About</a>
+                                </li>
+                                <li class="mega-item">
+                                    <a href="/contact" class="nav-link">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="navbar-actions">
+                            <t t-if="not user_id._is_public()">
+                                <a href="/my/profile" class="nav-button secondary">My Profile</a>
+                                <a href="/web/session/logout" class="nav-button primary">Sign Out</a>
+                            </t>
+                            <t t-else="">
+                                <a href="/web/login" class="nav-button secondary">Sign In</a>
+                                <a href="/web/signup" class="nav-button primary">Sign Up</a>
+                            </t>
+                        </div>
+
+                        <!-- Mobile Menu Button -->
+                        <button class="mobile-menu-button">
+                            <i class="fa fa-bars fa-lg"></i>
+                        </button>
+                    </div>
+                </nav>
+            </header>
+        </xpath>
+
+        <!-- Replace the default footer -->
+        <xpath expr="//footer" position="replace">
+            <footer class="custom-footer">
+                <div class="footer-container">
+                    <div class="footer-content">
+                        <div class="footer-section">
+                            <h3>Company</h3>
+                            <ul class="footer-links">
+                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/team">Team</a></li>
+                                <li><a href="/careers">Careers</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h3>Resources</h3>
+                            <ul class="footer-links">
+                                <li><a href="/blog">Blog</a></li>
+                                <li><a href="/documentation">Documentation</a></li>
+                                <li><a href="/newsletter">Newsletter</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h3>Support</h3>
+                            <ul class="footer-links">
+                                <li><a href="/help">Help Center</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="/faq">FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h3>Legal</h3>
+                            <ul class="footer-links">
+                                <li><a href="/privacy">Privacy Policy</a></li>
+                                <li><a href="/terms">Terms of Service</a></li>
+                                <li><a href="/cookies">Cookie Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <div class="social-links">
+                            <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
+                            <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
+                            <a href="#"><i class="fa fa-linkedin fa-lg"></i></a>
+                            <a href="#"><i class="fa fa-instagram fa-lg"></i></a>
+                        </div>
+                        <p>© <span t-field="res_company.name"/> <t t-esc="datetime.date.today().year"/>. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
+        </xpath>
+
+        <!-- Add custom CSS & JS -->
+        <xpath expr="//head" position="inside">
+            <style>
+                :root {
+                    --primary-color: #004C97;
+                    --secondary-color: #003A75;
+                }
+
+                /* NAVBAR */
+                .custom-navbar {
+                    background-color: #fff;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+                    padding: 1rem 0;
+                    position: fixed;
+                    width: 100%;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 1001;
+                }
+                .navbar-container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 2rem;
+                }
+                .navbar-brand img {
+                    height: 40px;
+                    width: auto;
+                }
+
+                /* Mega Menu */
+                .mega-menu-wrapper {
+                    position: relative;
+                }
+                .mega-menu {
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    margin: 0;
+                    padding: 0;
+                }
+                .mega-item {
+                    position: relative;
+                }
+                .mega-item a.nav-link {
+                    color: #333;
+                    font-size: 16px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: color 0.3s;
+                }
+                .mega-item a.nav-link:hover {
+                    color: var(--primary-color);
+                }
+                .mega-item.dropdown:hover .dropdown-content {
+                    display: flex;
+                }
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    background: #fff;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    padding: 1rem 2rem;
+                    gap: 2rem;
+                    z-index: 1002;
+                }
+                .dropdown-column {
+                    min-width: 140px;
+                }
+                .dropdown-column h4 {
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+                .dropdown-column a {
+                    display: block;
+                    color: #333;
+                    text-decoration: none;
+                    font-size: 14px;
+                    margin: 0.25rem 0;
+                    transition: color 0.3s;
+                }
+                .dropdown-column a:hover {
+                    color: var(--primary-color);
+                }
+
+                /* Actions */
+                .navbar-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+                .nav-button {
+                    padding: 8px 20px;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    font-size: 14px;
+                    text-decoration: none;
+                }
+                .nav-button.primary {
+                    background-color: var(--primary-color);
+                    color: #fff;
+                }
+                .nav-button.primary:hover {
+                    background-color: var(--secondary-color);
+                    transform: translateY(-2px);
+                }
+                .nav-button.secondary {
+                    border: 1px solid var(--primary-color);
+                    color: var(--primary-color);
+                    background-color: transparent;
+                }
+                .nav-button.secondary:hover {
+                    background-color: rgba(0, 76, 151, 0.1);
+                    transform: translateY(-2px);
+                }
+
+                /* MOBILE */
+                .mobile-menu-button {
+                    display: none;
+                    background: none;
+                    border: none;
+                    padding: 0.5rem;
+                    cursor: pointer;
+                }
+
+                /* FOOTER */
+                .custom-footer {
+                    background-color: #1a1a1a;
+                    color: #fff;
+                    padding: 4rem 2rem;
+                    <!-- margin-top: 5rem; -->
+                }
+                .footer-container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                }
+                .footer-content {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 2rem;
+                    margin-bottom: 2rem;
+                }
+                .footer-section h3 {
+                    font-size: 18px;
+                    margin-bottom: 1rem;
+                    font-weight: 600;
+                }
+                .footer-links {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+                .footer-links li {
+                    margin-bottom: 0.5rem;
+                }
+                .footer-links a {
+                    color: #9ca3af;
+                    text-decoration: none;
+                    font-size: 14px;
+                    transition: color 0.3s ease;
+                }
+                .footer-links a:hover {
+                    color: #fff;
+                }
+                .footer-bottom {
+                    border-top: 1px solid #333;
+                    padding-top: 1.5rem;
+                    text-align: center;
+                    color: #9ca3af;
+                    font-size: 14px;
+                }
+                .social-links {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+                }
+                .social-links a {
+                    color: #9ca3af;
+                    transition: color 0.3s;
+                }
+                .social-links a:hover {
+                    color: #fff;
+                }
+
+                /* CONTENT SPACING */
+                #wrap {
+                    margin-top: 80px;
+                }
+
+                @media (max-width: 991px) {
+                    .mega-menu {
+                        display: none; /* Hide until toggled */
+                        flex-direction: column;
+                        background: #fff;
+                        position: absolute;
+                        top: 60px;
+                        left: 0;
+                        right: 0;
+                        padding: 1rem;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    }
+                    .navbar-actions {
+                        display: none; /* Hide until toggled */
+                        flex-direction: column;
+                        background: #fff;
+                        position: absolute;
+                        top: 130px;
+                        left: 0;
+                        right: 0;
+                        padding: 1rem;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    }
+                    .mobile-menu-button {
+                        display: block; /* Show button on mobile */
+                    }
+                    .footer-content {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+
+                @media (max-width: 576px) {
+                    .footer-content {
+                        grid-template-columns: 1fr;
+                    }
+                }
+
+                /* Mobile Navigation Styles */
+                @media (max-width: 991px) {
+                    .mega-menu {
+                        display: none;
+                        position: absolute;
+                        top: 70px;
+                        left: 0;
+                        right: 0;
+                        background: white;
+                        flex-direction: column;
+                        padding: 1rem;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        border-top: 1px solid #eee;
+                    }
+
+                    .mega-item {
+                        width: 100%;
+                        padding: 0.5rem 0;
+                        border-bottom: 1px solid #eee;
+                    }
+
+                    .mega-item:last-child {
+                        border-bottom: none;
+                    }
+
+                    .navbar-actions {
+                        display: none;
+                        position: absolute;
+                        top: calc(70px + 100%);
+                        left: 0;
+                        right: 0;
+                        background: white;
+                        flex-direction: column;
+                        padding: 1rem;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        gap: 0.5rem;
+                    }
+
+                    .nav-button {
+                        width: 100%;
+                        text-align: center;
+                        margin: 0.25rem 0;
+                        background-color: var(--primary-color);
+                        color: white !important;
+                    }
+
+                    .nav-button.secondary {
+                        background-color: #f8f9fa;
+                        color: var(--primary-color) !important;
+                    }
+
+                    .mobile-menu-button {
+                        display: block;
+                        padding: 0.5rem;
+                        border-radius: 4px;
+                        border: 1px solid #eee;
+                        background: white;
+                        color: var(--primary-color);
+                        transition: all 0.3s ease;
+                    }
+
+                    .mobile-menu-button:hover {
+                        background: #f8f9fa;
+                    }
+
+                    .mobile-menu-button.active {
+                        background: var(--primary-color);
+                        color: white;
+                    }
+
+                    /* Animation for menu items */
+                    .mega-menu.show, .navbar-actions.show {
+                        display: flex;
+                        animation: slideDown 0.3s ease forwards;
+                    }
+
+                    @keyframes slideDown {
+                        from {
+                            opacity: 0;
+                            transform: translateY(-10px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                }
+
+                /* Base styles */
+                :root {
+                    --primary-color: #004C97;
+                    --secondary-color: #003A75;
+                    --nav-height: 70px;
+                    --menu-bg: #ffffff;
+                }
+
+                .custom-navbar {
+                    background-color: var(--menu-bg);
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+                    height: var(--nav-height);
+                    position: fixed;
+                    width: 100%;
+                    top: 0;
+                    left: 0;
+                    z-index: 1000;
+                }
+
+                /* Mobile Styles */
+                @media (max-width: 991px) {
+                    .mega-menu-wrapper {
+                        position: fixed;
+                        top: var(--nav-height);
+                        left: 0;
+                        right: 0;
+                        background: var(--menu-bg);
+                        padding: 1rem;
+                        display: none;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    }
+
+                    .mega-menu-wrapper.active {
+                        display: block;
+                    }
+
+                    .mega-menu {
+                        flex-direction: column;
+                        width: 100%;
+                    }
+
+                    .mega-item {
+                        width: 100%;
+                        padding: 0.75rem 1rem;
+                        border-bottom: 1px solid rgba(0,0,0,0.1);
+                    }
+
+                    .mega-item:last-child {
+                        border-bottom: none;
+                    }
+
+                    .nav-link {
+                        display: block;
+                        width: 100%;
+                        padding: 0.5rem 0;
+                        font-size: 16px;
+                    }
+
+                    .navbar-actions {
+                        margin-top: 1rem;
+                        padding: 1rem;
+                        background: #f8f9fa;
+                        border-radius: 8px;
+                    }
+
+                    .nav-button {
+                        display: block;
+                        width: 100%;
+                        margin: 0.5rem 0;
+                        text-align: center;
+                        padding: 0.75rem 1.5rem;
+                    }
+
+                    .nav-button.primary {
+                        background: var(--primary-color);
+                        color: white;
+                    }
+
+                    .nav-button.secondary {
+                        background: white;
+                        border: 1px solid var(--primary-color);
+                    }
+
+                    .mobile-menu-button {
+                        display: block;
+                        padding: 0.5rem;
+                        font-size: 1.5rem;
+                        color: var(--primary-color);
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                    }
+
+                    .dropdown-content {
+                        position: static;
+                        box-shadow: none;
+                        padding: 0.5rem 0 0.5rem 1rem;
+                        display: none;
+                    }
+
+                    .dropdown-column {
+                        margin-bottom: 1rem;
+                    }
+
+                    .dropdown-column h4 {
+                        color: var(--primary-color);
+                        margin: 0.5rem 0;
+                    }
+                }
+            </style>
+            <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', function() {
+                    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+                    const megaMenu = document.querySelector('.mega-menu');
+                    const navbarActions = document.querySelector('.navbar-actions');
+
+                    mobileMenuButton.addEventListener('click', function() {
+                        const isVisible = megaMenu.style.display === 'flex';
+                        megaMenu.style.display = isVisible ? 'none' : 'flex';
+                        navbarActions.style.display = isVisible ? 'none' : 'flex';
+                    });
+
+                    mobileMenuButton.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        megaMenu.classList.toggle('show');
+                        navbarActions.classList.toggle('show');
+                    });
+
+                    const mobileMenu = document.querySelector('.mobile-menu-button');
+                    const menuWrapper = document.querySelector('.mega-menu-wrapper');
+                    
+                    mobileMenu.addEventListener('click', function() {
+                        menuWrapper.classList.toggle('active');
+                        this.classList.toggle('active');
+                    });
+                });
+            </script>
+        </xpath>
+    </template>
+</odoo>

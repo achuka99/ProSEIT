@@ -1,0 +1,277 @@
+<odoo>
+    <template id="registration_choice_template" name="Choose Registration Type">
+        <t t-call="website.layout">
+            <div class="container-fluid px-0">
+                <style>
+                    :root {
+                        --primary-color: #004c97;
+                        --secondary-color: rgb(216, 169, 13);
+                        --accent-color: #2a94b2;
+                        --text-color: #333;
+                    }
+
+                    /* Hero Section */
+                    .hero-section {
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                        padding: 6rem 0;
+                        position: relative;
+                        overflow: hidden;
+                        margin-bottom: 4rem;
+                    }
+
+                    .hero-section::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -50px;
+                        left: 0;
+                        right: 0;
+                        height: 100px;
+                        background: white;
+                        transform: skewY(-3deg);
+                    }
+
+                    .hero-content {
+                        position: relative;
+                        z-index: 1;
+                        text-align: center;
+                        color: white;
+                    }
+
+                    .hero-title {
+                        font-size: 3.5rem;
+                        font-weight: 700;
+                        margin-bottom: 1.5rem;
+                        color: white;
+                    }
+
+                    .hero-text {
+                        font-size: 1.2rem;
+                        margin-bottom: 2rem;
+                        opacity: 0.9;
+                    }
+
+                    /* Registration Cards */
+                    .reg-card {
+                        background: white;
+                        border-radius: 12px;
+                        padding: 2rem;
+                        height: 100%;
+                        transition: all 0.3s ease;
+                        border: 1px solid #eee;
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .reg-card:hover {
+                        transform: translateY(-10px);
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .reg-card::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 4px;
+                        background: var(--primary-color);
+                    }
+
+                    .reg-title {
+                        color: var(--primary-color);
+                        font-size: 1.5rem;
+                        font-weight: 600;
+                        margin-bottom: 1rem;
+                    }
+
+                    .reg-price {
+                        font-size: 2.5rem;
+                        font-weight: 700;
+                        color: var(--text-color);
+                        margin: 1.5rem 0;
+                    }
+
+                    .feature-list {
+                        list-style: none;
+                        padding: 0;
+                        margin: 2rem 0;
+                    }
+
+                    .feature-item {
+                        padding: 0.5rem 0;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+
+                    .feature-icon {
+                        color: var(--primary-color);
+                    }
+
+                    /* CTA Button */
+                    .cta-button {
+                        background: var(--primary-color);
+                        color: white;
+                        padding: 1rem 2rem;
+                        border-radius: 50px;
+                        text-decoration: none;
+                        display: inline-block;
+                        transition: all 0.3s ease;
+                        border: none;
+                        font-weight: 600;
+                    }
+
+                    .cta-button:hover {
+                        background: var(--secondary-color);
+                        transform: translateY(-2px);
+                        color: white;
+                    }
+
+                    /* FAQ Section */
+                    .faq-section {
+                        background: #f8f9fa;
+                        padding: 4rem 0;
+                        margin-top: 4rem;
+                    }
+
+                    .faq-item {
+                        background: white;
+                        border-radius: 8px;
+                        margin-bottom: 1rem;
+                        overflow: hidden;
+                    }
+
+                    /* Animations */
+                    @keyframes fadeInUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+
+                    .animate-fadeInUp {
+                        animation: fadeInUp 0.6s ease forwards;
+                    }
+
+                    .delay-1 { animation-delay: 0.2s; }
+                    .delay-2 { animation-delay: 0.4s; }
+                    .delay-3 { animation-delay: 0.6s; }
+                </style>
+
+                <!-- Hero Section -->
+                <section class="hero-section">
+                    <div class="container hero-content">
+                        <h1 class="hero-title animate-fadeInUp">Choose Your Membership</h1>
+                        <p class="hero-text animate-fadeInUp delay-1">Join the leading community of software engineers and IT professionals in Kenya</p>
+                    </div>
+                </section>
+
+                <!-- Registration Cards -->
+                <section class="container py-5">
+                    <div class="row g-4">
+                        <!-- Student Membership -->
+                        <div class="col-md-4">
+                            <div class="reg-card animate-fadeInUp delay-1">
+                                <h3 class="reg-title">Student Member</h3>
+                                <div class="reg-price">KES 2,000<span class="text-muted">/year</span></div>
+                                <ul class="feature-list">
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Access to learning resources</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Student events &amp; workshops</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Mentorship program</span>
+                                    </li>
+                                </ul>
+                                <a href="/register/student" class="cta-button w-100">Join as Student</a>
+                            </div>
+                        </div>
+
+                        <!-- Professional Membership -->
+                        <div class="col-md-4">
+                            <div class="reg-card animate-fadeInUp delay-2">
+                                <h3 class="reg-title">Professional Member</h3>
+                                <div class="reg-price">KES 5,000<span class="text-muted">/year</span></div>
+                                <ul class="feature-list">
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Professional certification</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Industry networking events</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Career development resources</span>
+                                    </li>
+                                </ul>
+                                <a href="/register/professional" class="cta-button w-100">Join as Professional</a>
+                            </div>
+                        </div>
+
+                        <!-- Corporate Membership -->
+                        <div class="col-md-4">
+                            <div class="reg-card animate-fadeInUp delay-3">
+                                <h3 class="reg-title">Corporate Member</h3>
+                                <div class="reg-price">KES 50,000<span class="text-muted">/year</span></div>
+                                <ul class="feature-list">
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Group memberships</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Corporate training programs</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <i class="fa fa-check-circle feature-icon"></i>
+                                        <span>Industry partnerships</span>
+                                    </li>
+                                </ul>
+                                <a href="/register/corporate" class="cta-button w-100">Join as Corporate</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section class="faq-section">
+                    <div class="container">
+                        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="faq-item">
+                                    <div class="accordion" id="faqAccordion">
+                                        <!-- FAQ Items -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                                    How do I choose the right membership type?
+                                                </button>
+                                            </h2>
+                                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    Choose based on your current professional status. Students should select student membership, working professionals should choose professional membership, and organizations should opt for corporate membership.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 import base64
 import logging
 import json
+from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
@@ -47,7 +48,6 @@ class PortalProfessional(CustomerPortal):
 
         return request.redirect('/my/professional')  # Redirect back to profile after update
 
-
     def _prepare_home_portal_values(self, counters):
         values = super()._prepare_home_portal_values(counters)
 
@@ -67,7 +67,6 @@ class PortalProfessional(CustomerPortal):
     def professional_registration(self, **kw):
         # Render the registration form
         return request.render('proseit.portal_professional_registration')
-
 
     @http.route(['/professional/register/submit'], type='http', methods=['POST'], auth="public", website=True, csrf=False)
     def professional_registration_submit(self, **post):
@@ -116,7 +115,7 @@ class PortalProfessional(CustomerPortal):
                 'partner_id': new_partner.id,
             }
 
-            # Image Handling for Professional Photos (if different from the partner's image)
+            # Image Handling for Professional Photos
             if 'professional_photos' in post:
                 professional_image = post['professional_photos']
                 if professional_image and professional_image.filename and professional_image.content_type.startswith('image/'):
@@ -132,46 +131,55 @@ class PortalProfessional(CustomerPortal):
                 _logger.info("Received education_entries_json: %s", education_entries_json)
                 
                 try:
-                    # Parse the JSON string into a dictionary
                     education_entries = json.loads(education_entries_json)
                     _logger.info("Parsed education_entries: %s", education_entries)
                     
-                    # Initialize placeholders for the data
-                    institution_name = ''
-                    education_level = ''
-                    completion_year = None
+                    # Group entries by their index
+                    grouped_entries = {}
+                    for entry_id, value in education_entries.items():
+                        # Extract the index number from the key (e.g., "institution_1" -> "1")
+                        index = entry_id.split('_')[-1]
+                        field_name = '_'.join(entry_id.split('_')[:-1])  # Get the field name without index
+                        
+                        if index not in grouped_entries:
+                            grouped_entries[index] = {}
+                        grouped_entries[index][field_name] = value
 
-                    # Process education entries
-                    for entry_id, details_str in education_entries.items():
-                        _logger.info(f"Processing entry_id: {entry_id}, details_str: {details_str}")
+                    # Process each group of entries
+                    for entries in grouped_entries.values():
+                        if all(key in entries for key in ['institution', 'level']):
+                            try:
+                                # Parse dates if they exist
+                                start_date = None
+                                completion_date = None
+                                
+                                if 'start_year' in entries:
+                                    start_date = datetime.strptime(entries['start_year'], '%Y-%m-%d').date()
+                                if 'year' in entries:
+                                    completion_date = datetime.strptime(entries['year'], '%Y-%m-%d').date()
 
-                        # Handle the different types of entries (institution, level, year)
-                        if "institution" in entry_id:
-                            institution_name = details_str  # plain string
-                        elif "level" in entry_id:
-                            education_level = details_str  # plain string
-                        elif "year" in entry_id:
-                            completion_year = int(details_str)  # make sure to cast year to int
-
-                        # Create the education record if all fields are available
-                        if institution_name and education_level and completion_year:
-                            request.env['proseit.education'].sudo().create({
-                                'institution_name': institution_name,
-                                'education_level': education_level,
-                                'completion_year': completion_year,
-                                'professional_id': professional.id,
-                            })
-                            # Reset after creation
-                            institution_name = ''
-                            education_level = ''
-                            completion_year = None
+                                education_data = {
+                                    'institution_name': entries['institution'],
+                                    'education_level': entries['level'],
+                                    'start_year': start_date,
+                                    'completion_year': completion_date,
+                                    'professional_id': professional.id,
+                                }
+                                
+                                request.env['proseit.education'].sudo().create(education_data)
+                                _logger.info(f"Created education entry: {education_data}")
+                                
+                            except ValueError as e:
+                                _logger.error(f"Date parsing error: {str(e)}")
+                            except Exception as e:
+                                _logger.error(f"Error creating education entry: {str(e)}")
+                        else:
+                            _logger.warning(f"Incomplete education entry: {entries}")
 
                 except json.JSONDecodeError as e:
                     _logger.error(f"Failed to parse education_entries_json: {str(e)}")
-                except KeyError as e:
-                    _logger.warning(f"Missing key in details for entry_id: {str(e)}")
                 except Exception as e:
-                    _logger.error(f"Unexpected error processing entry_id: {str(e)}")
+                    _logger.error(f"Unexpected error processing education entries: {str(e)}")
 
             # Capture Certification Details
             certification_entries_json = post.get('certification_entries')
@@ -194,8 +202,11 @@ class PortalProfessional(CustomerPortal):
                             certification_data = {
                                 'certification_name': details['name'],
                                 'issuing_organization': details['organization'],
-                                'date_awarded': date_awarded,  # This will be None if missing
-                                'expiration_date': expiration_date,  # This will be None if missing
+                                'type_of_certification': details['type'],
+                                'date_awarded': date_awarded,
+                                'expiration_date': expiration_date,
+                                'competency_level': details['competency_level'],
+                                'certification_number': details['certification_number'],
                                 'professional_id': professional.id,
                             }
                             request.env['proseit.certification'].sudo().create(certification_data)
@@ -235,11 +246,10 @@ class PortalProfessional(CustomerPortal):
                 except json.JSONDecodeError:
                     _logger.error("Failed to parse soft skills JSON.")
 
-            # Redirect to a thank-you page after successful registration
             return request.redirect('/professional/thankyou')
 
         except ValidationError as e:
-            return request.render("proseit.professional_registration_form", {
+            return request.render("proseit.portal_professional_registration", {
                 'error_message': str(e),
                 'page_name': 'professional_registration',
             })

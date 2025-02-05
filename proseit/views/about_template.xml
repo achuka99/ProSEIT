@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="about_page" name="ProSEIT About Page">
+        <t t-call="website.layout">
+            <div class="container-fluid px-0">
+                <!-- Inherit base styles from homepage -->
+                <style>
+                     :root {
+                        --primary-color: #004c97;
+                        --secondary-color: #ff9900;
+                        --accent-color: #2a94b2;
+                        --text-color: #333;
+                    }
+
+                    /* Hero Section */
+                    .hero-section {
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                        padding: 6rem 0;
+                        position: relative;
+                        overflow: hidden;
+                        margin-bottom: 4rem;
+                    }
+
+                    .hero-section::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -50px;
+                        left: 0;
+                        right: 0;
+                        height: 100px;
+                        background: white;
+                        transform: skewY(-3deg);
+                    }
+
+                    .hero-content {
+                        position: relative;
+                        z-index: 1;
+                    }
+
+                    .hero-title {
+                        color: white;
+                        font-size: 3.5rem;
+                        font-weight: 700;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .hero-text {
+                        color: rgba(255, 255, 255, 0.9);
+                        font-size: 1.2rem;
+                        margin-bottom: 2rem;
+                    }
+
+                    /* About Section */
+                    .about-section {
+                        background: #f8f9fa;
+                        padding: 4rem 0;
+                    }
+
+                    .about-title {
+                        color: var(--primary-color);
+                        font-weight: 600;
+                        margin-bottom: 1rem;
+                    }
+
+                    .about-text {
+                        font-size: 1.2rem;
+                        color: var(--text-color);
+                        margin-bottom: 2rem;
+                    }
+
+                    /* Values Section */
+                    .value-card {
+                        background: white;
+                        border-radius: 8px;
+                        padding: 2rem;
+                        transition: all 0.3s ease;
+                        border: 1px solid #e0e0e0;
+                        height: 100%;
+                    }
+
+                    .value-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .value-icon {
+                        font-size: 2.5rem;
+                        color: var(--primary-color);
+                        margin-bottom: 1rem;
+                    }
+
+                    /* Contact Section */
+                    .contact-section {
+                        background: #004c97;
+                        color: white;
+                        padding: 4rem 0;
+                        margin-top: 4rem;
+                    }
+
+                    .cta-button {
+                        background-color: var(--primary-color);
+                        color: white;
+                        padding: 0.75rem 2rem;
+                        border-radius: 25px;
+                        font-weight: 500;
+                        transition: all 0.2s ease;
+                        display: inline-block;
+                        text-decoration: none;
+                    }
+
+                    .cta-button:hover {
+                        background-color: var(--secondary-color);
+                        transform: translateY(-1px);
+                    }
+
+                                        .events-section {
+                        padding: 4rem 0;
+                        background: #f8f9fa;
+                    }
+                    
+                    .event-card {
+                        background: white;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                        margin-bottom: 1.5rem;
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .event-card:hover {
+                        transform: translateY(-5px);
+                    }
+                    
+                    .event-date {
+                        background: var(--primary-color);
+                        color: white;
+                        padding: 0.5rem;
+                        text-align: center;
+                        font-weight: 600;
+                    }
+                    
+                    .event-content {
+                        padding: 1.5rem;
+                    }
+                    
+                    /* Partners Section Styles */
+                    .partners-section {
+                        padding: 4rem 0;
+                        background: white;
+                        overflow: hidden;
+                    }
+                    
+                    .partners-slider {
+                        display: flex;
+                        animation: slidePartners 30s linear infinite;
+                        width: max-content;
+                    }
+                    
+                    .partner-logo {
+                        width: 200px;
+                        height: 100px;
+                        margin: 0 2rem;
+                        object-fit: contain;
+                        filter: grayscale(100%);
+                        transition: filter 0.3s ease;
+                    }
+                    
+                    .partner-logo:hover {
+                        filter: grayscale(0%);
+                    }
+                    
+                    @keyframes slidePartners {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                    }
+
+                    /* User Journey Section */
+                    .journey-section {
+                        padding: 4rem 0;
+                        background: #f8f9fa;
+                    }
+
+                    .journey-card {
+                        padding: 2rem;
+                        border-radius: 8px;
+                        background: white;
+                        height: 100%;
+                        transition: all 0.3s ease;
+                    }
+
+                    .journey-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .journey-icon {
+                        font-size: 2.5rem;
+                        color: var(--primary-color);
+                        margin-bottom: 1rem;
+                    }
+
+                    /* Digital Pioneers Section */
+                    .pioneers-section {
+                        background: linear-gradient(rgba(0, 76, 151, 0.9), rgba(0, 76, 151, 0.9)),
+                                    url('/web/image/website.digital_pioneers_bg');
+                        color: white;
+                        padding: 6rem 0;
+                        position: relative;
+                    }
+
+                    /* Member Stories Section */
+                    .member-story {
+                        background: white;
+                        border-radius: 8px;
+                        padding: 2rem;
+                        margin-bottom: 2rem;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .member-quote {
+                        font-style: italic;
+                        font-size: 1.1rem;
+                        color: #666;
+                        margin: 1rem 0;
+                    }
+
+                    /* News Section */
+                    .news-card {
+                        background: white;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        margin-bottom: 2rem;
+                    }
+
+                    .news-tag {
+                        display: inline-block;
+                        padding: 0.25rem 1rem;
+                        background: var(--secondary-color);
+                        color: white;
+                        border-radius: 4px;
+                        font-size: 0.9rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    .news-image {
+                        width: 100%;
+                        height: 200px;
+                        object-fit: cover;
+                    }
+
+                                    /* Quick Links Bar */
+                .quick-links-bar {
+                    background: var(--primary-color);
+                    padding: 0.5rem 0;
+                    position: sticky;
+                    top: 0;
+                    z-index: 1000;
+                }
+
+                .quick-link {
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    font-size: 0.9rem;
+                    text-decoration: none;
+                }
+
+                /* Stats Counter */
+                .stats-counter {
+                    background: linear-gradient(135deg, #004c97, #2a94b2);
+                    color: white;
+                    padding: 4rem 0;
+                }
+
+                .stat-item {
+                    text-align: center;
+                    padding: 1rem;
+                }
+
+                .stat-number {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    margin-bottom: 0.5rem;
+                }
+
+                /* Certification Badges */
+                .certification-badges {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    justify-content: center;
+                    padding: 2rem 0;
+                }
+
+                .badge-item {
+                    width: 150px;
+                    text-align: center;
+                }
+
+                /* Emergency Banner */
+                .emergency-banner {
+                    background: #ff9900;
+                    color: white;
+                    padding: 0.75rem;
+                    text-align: center;
+                    display: none; /* Show dynamically when needed */
+                }
+
+                    /* About Page Specific Styles */
+                    .about-hero {
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                        padding: 4rem 0;
+                        color: white;
+                    }
+
+                    .timeline {
+                        position: relative;
+                        padding: 2rem 0;
+                    }
+
+                    .timeline::before {
+                        content: '';
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 2px;
+                        height: 100%;
+                        background: var(--primary-color);
+                    }
+
+                    .timeline-item {
+                        position: relative;
+                        margin-bottom: 2rem;
+                        width: 50%;
+                        padding: 0 2rem;
+                    }
+
+                    .timeline-item:nth-child(odd) {
+                        left: 0;
+                        text-align: right;
+                    }
+
+                    .timeline-item:nth-child(even) {
+                        left: 50%;
+                    }
+
+                    .timeline-dot {
+                        position: absolute;
+                        width: 20px;
+                        height: 20px;
+                        background: var(--primary-color);
+                        border-radius: 50%;
+                        top: 0;
+                    }
+
+                    .timeline-item:nth-child(odd) .timeline-dot {
+                        right: -10px;
+                    }
+
+                    .timeline-item:nth-child(even) .timeline-dot {
+                        left: -10px;
+                    }
+
+                    .mission-card {
+                        background: white;
+                        border-radius: 8px;
+                        padding: 2rem;
+                        height: 100%;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .leadership-card {
+                        background: white;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        margin-bottom: 2rem;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                        transition: transform 0.3s ease;
+                    }
+
+                    .leadership-card:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    .leadership-image {
+                        width: 100%;
+                        height: 300px;
+                        object-fit: cover;
+                    }
+
+                    .achievement-item {
+                        padding: 2rem;
+                        border-left: 4px solid var(--primary-color);
+                        background: #f8f9fa;
+                        margin-bottom: 1rem;
+                    }
+
+                                        /* Organization Structure */
+                    .org-structure {
+                        padding: 4rem 0;
+                        background: #f8f9fa;
+                    }
+
+                    .org-card {
+                        background: white;
+                        border-radius: 8px;
+                        padding: 2rem;
+                        height: 100%;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                        transition: transform 0.3s ease;
+                    }
+
+                    .org-card:hover {
+                        transform: translateY(-5px);
+                    }
+
+                    /* Strategic Objectives */
+                    .strategic-objectives {
+                        padding: 4rem 0;
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                        color: white;
+                        position: relative;
+                    }
+
+                    .objective-card {
+                        background: rgba(255, 255, 255, 0.1);
+                        backdrop-filter: blur(10px);
+                        border-radius: 8px;
+                        padding: 2rem;
+                        height: 100%;
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        transition: all 0.3s ease;
+                    }
+
+                    .objective-card:hover {
+                        background: rgba(255, 255, 255, 0.2);
+                        transform: translateY(-5px);
+                    }
+
+                    /* Transitions */
+                    .section-transition {
+                        position: relative;
+                        height: 100px;
+                        overflow: hidden;
+                    }
+
+                    .transition-wave {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100px;
+                        background: white;
+                        clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
+                    }
+
+                    /* Animations */
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+
+                    .fade-in {
+                        animation: fadeIn 1s ease forwards;
+                        opacity: 0;
+                    }
+
+                    /* Global Smooth Scroll */
+                    html {
+                        scroll-behavior: smooth;
+                    }
+                </style>
+
+                <!-- About Hero Section -->
+                <section class="about-hero">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <h1 class="mb-4">About ProSEIT</h1>
+                                <p class="lead">ProSEIT was established to advance the Software Engineering and IT profession in Ug through standards, education, and ethical practice.</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="/web/image/website.about_hero" alt="ProSEIT Office" class="img-fluid rounded"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mission, Vision, Values Section -->
+                <section class="container py-5">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="mission-card">
+                                <h3 class="mb-3">Our Mission</h3>
+                                <p>To promote excellence, innovation, and ethical practices in Software Engineering and Information Technology, fostering professional growth and technological advancement in Tanzania.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mission-card">
+                                <h3 class="mb-3">Our Vision</h3>
+                                <p>To be the leading authority in professional standards and development for Software Engineering and IT practitioners in Tanzania and East Africa.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mission-card">
+                                <h3 class="mb-3">Core Values</h3>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">✓ Professional Excellence</li>
+                                    <li class="mb-2">✓ Ethical Practice</li>
+                                    <li class="mb-2">✓ Innovation</li>
+                                    <li class="mb-2">✓ Continuous Learning</li>
+                                    <li>✓ Collaboration</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                 <!-- Organization Structure Section -->
+                <section class="org-structure">
+                    <div class="container">
+                        <h2 class="text-center mb-5 fade-in">Organization Structure</h2>
+                        <div class="row g-4">
+                            <div class="col-lg-4">
+                                <div class="org-card fade-in">
+                                    <h4 class="mb-3">Board of Directors</h4>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">• Board Chair</li>
+                                        <li class="mb-2">• Vice Chair</li>
+                                        <li class="mb-2">• Secretary</li>
+                                        <li class="mb-2">• Treasury</li>
+                                        <li>• Non-Executive Directors</li>
+                                    </ul>
+                                    <p class="mt-3">Responsible for strategic direction and governance of ProSEIT.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="org-card fade-in">
+                                    <h4 class="mb-3">Executive Management</h4>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">• Executive Director</li>
+                                        <li class="mb-2">• Technical Director</li>
+                                        <li class="mb-2">• Operations Director</li>
+                                        <li class="mb-2">• Finance Director</li>
+                                        <li>• HR Director</li>
+                                    </ul>
+                                    <p class="mt-3">Oversees daily operations and implementation of strategic plans.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="org-card fade-in">
+                                    <h4 class="mb-3">Technical Committees</h4>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">• Standards Committee</li>
+                                        <li class="mb-2">• Certification Committee</li>
+                                        <li class="mb-2">• Ethics Committee</li>
+                                        <li class="mb-2">• Research Committee</li>
+                                        <li>• Education Committee</li>
+                                    </ul>
+                                    <p class="mt-3">Specialized committees focusing on key professional areas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Strategic Objectives Section -->
+                <section class="strategic-objectives">
+                    <div class="container">
+                        <h2 class="text-center mb-5 fade-in">Strategic Objectives 2024-2027</h2>
+                        <div class="row g-4">
+                            <div class="col-lg-4">
+                                <div class="objective-card fade-in">
+                                    <h4 class="mb-3">Professional Development</h4>
+                                    <p>Establish comprehensive certification programs and continuous learning pathways.</p>
+                                    <ul class="mt-3">
+                                        <li class="mb-2">Launch 5 new certification tracks</li>
+                                        <li class="mb-2">Train 20,000 professionals</li>
+                                        <li class="mb-2">Develop online learning platform</li>
+                                        <li>Establish mentorship programs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="objective-card fade-in">
+                                    <h4 class="mb-3">Industry Standards</h4>
+                                    <p>Develop and implement national standards for software development.</p>
+                                    <ul class="mt-3">
+                                        <li class="mb-2">Create industry best practices</li>
+                                        <li class="mb-2">Establish quality frameworks</li>
+                                        <li class="mb-2">Promote ethical guidelines</li>
+                                        <li>Develop compliance programs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="objective-card fade-in">
+                                    <h4 class="mb-3">Digital Innovation</h4>
+                                    <p>Foster innovation and digital transformation across Tanzania.</p>
+                                    <ul class="mt-3">
+                                        <li class="mb-2">Support 100 tech startups</li>
+                                        <li class="mb-2">Launch innovation hubs</li>
+                                        <li class="mb-2">Create research grants</li>
+                                        <li>Establish tech incubators</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- History Timeline Section -->
+                <section class="container py-5">
+                    <h2 class="text-center mb-5">Our Journey</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="mb-3">
+                                <h4>2024</h4>
+                                <p>Official establishment of ProSEIT as the national body for Software Engineering and IT professionals</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="mb-3">
+                                <h4>2024</h4>
+                                <p>Launch of Professional Certification Programs</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="mb-3">
+                                <h4>2024</h4>
+                                <p>First National Tech Conference</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="mb-3">
+                                <h4>2025</h4>
+                                <p>Expansion of membership to 50,000+ professionals</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Leadership Section -->
+                <section class="container py-5">
+                    <h2 class="text-center mb-5">Our Leadership</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="leadership-card">
+                                <img src="/web/image/website.leader1" alt="Board Chair" class="leadership-image"/>
+                                <div class="p-4">
+                                    <h4>Dr. Sarah Kimaro</h4>
+                                    <p class="text-muted">Board Chair</p>
+                                    <p>25+ years experience in Software Engineering and IT Leadership</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="leadership-card">
+                                <img src="/web/image/website.leader2" alt="Executive Director" class="leadership-image"/>
+                                <div class="p-4">
+                                    <h4>Mr. John Makundi</h4>
+                                    <p class="text-muted">Executive Director</p>
+                                    <p>Former CTO with extensive industry experience</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="leadership-card">
+                                <img src="/web/image/website.leader3" alt="Technical Director" class="leadership-image"/>
+                                <div class="p-4">
+                                    <h4>Ms. Grace Mwanza</h4>
+                                    <p class="text-muted">Technical Director</p>
+                                    <p>Expert in IT standards and certification</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Key Achievements Section -->
+                <section class="container py-5">
+                    <h2 class="text-center mb-5">Key Achievements</h2>
+                    <div class="achievement-item">
+                        <h4>National Recognition</h4>
+                        <p>Official recognition by the Government of Tanzania as the professional body for Software Engineering and IT</p>
+                    </div>
+                    <div class="achievement-item">
+                        <h4>Professional Standards</h4>
+                        <p>Development of comprehensive professional standards and certification frameworks</p>
+                    </div>
+                    <div class="achievement-item">
+                        <h4>Industry Partnerships</h4>
+                        <p>Established partnerships with 100+ leading technology companies</p>
+                    </div>
+                    <div class="achievement-item">
+                        <h4>Educational Impact</h4>
+                        <p>Trained and certified over 10,000 professionals in various IT specializations</p>
+                    </div>
+                </section>
+
+                <!-- Contact CTA Section -->
+                <section class="contact-section">
+                    <div class="container text-center">
+                        <h2 class="mb-4">Get in Touch</h2>
+                        <p class="mb-4">Want to learn more about ProSEIT or get involved?</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="/contact" class="cta-button">Contact Us</a>
+                            <a href="/membership" class="cta-button">Join ProSEIT</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Animation Script -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const fadeElements = document.querySelectorAll('.fade-in');
+                        
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.style.opacity = '1';
+                                    entry.target.style.transform = 'translateY(0)';
+                                }
+                            });
+                        }, { threshold: 0.1 });
+
+                        fadeElements.forEach(element => {
+                            observer.observe(element);
+                        });
+                    });
+                </script>
+            </div>
+        </t>
+    </template>
+</odoo>

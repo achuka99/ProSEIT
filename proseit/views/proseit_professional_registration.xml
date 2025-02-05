@@ -1,10 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="portal_professional_registration" name="Professional Registration">
         <t t-call="website.layout">
-            <div class="container">
-                <h2 class="text-center">Register as a Professional</h2>
-                
-                <!-- Registration Steps -->
+            <div class="split-layout">
+                <!-- Left side - Feature Panel -->
+                <div class="split-left">
+                    <div class="left-content">
+                        <h2 class="title">Become a Professional Member</h2>
+                        <p class="subtitle">Join our expert community</p>
+                        <div class="features">
+                            <div class="feature-item">
+                                <i class="fa fa-check-circle feature-icon"></i>
+                                <span>Professional Recognition</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fa fa-check-circle feature-icon"></i>
+                                <span>Expert Network Access</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fa fa-check-circle feature-icon"></i>
+                                <span>Career Growth</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right side - Registration Form -->
+                <div class="split-right">
+                    <div class="registration-container">
+                        <style>
+                            :root {
+                                --primary: #004c97;
+                                --accent: #2a94b2;
+                                --text: #333;
+                                --border: #e0e0e0;
+                                --shadow: rgba(0,0,0,0.1);
+                            }
+
+                            .split-layout {
+                                display: flex;
+                                min-height: 100vh;
+                                background: #f8f9fa;
+                            }
+
+                            .split-left {
+                                display: none;
+                                width: 35%;
+                                background: linear-gradient(135deg, var(--primary), var(--accent));
+                                padding: 2rem;
+                                color: white;
+                            }
+
+                            .split-right {
+                                width: 100%;
+                                padding: 2rem;
+                                overflow-y: auto;
+                            }
+
+                            .registration-container {
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }
+
+                            /* Form Sections */
+                            .form-section {
+                                background: white;
+                                border-radius: 8px;
+                                box-shadow: 0 2px 10px var(--shadow);
+                                padding: 1.5rem;
+                                margin-bottom: 1.5rem;
+                            }
+
+                            .form-group {
+                                margin-bottom: 1rem;
+                            }
+
+                            .form-label {
+                                font-weight: 500;
+                                margin-bottom: 0.5rem;
+                                color: var(--text);
+                            }
+
+                            .form-control {
+                                border: 1px solid var(--border);
+                                border-radius: 6px;
+                                padding: 0.5rem;
+                                width: 100%;
+                                transition: all 0.3s;
+                            }
+
+                            .form-control:focus {
+                                border-color: var(--primary);
+                                box-shadow: 0 0 0 2px rgba(0,76,151,0.1);
+                            }
+
+                            /* Progress Indicator */
+                            .progress-steps {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: 2rem;
+                            }
+
+                            .step-item {
+                                flex: 1;
+                                text-align: center;
+                                position: relative;
+                            }
+
+                            .step-number {
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                background: var(--primary);
+                                color: white;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin: 0 auto;
+                            }
+
+                            /* Buttons */
+                            .btn {
+                                padding: 0.5rem 1rem;
+                                border-radius: 6px;
+                                font-weight: 500;
+                                transition: all 0.3s;
+                            }
+
+                            .btn-primary {
+                                background: var(--primary);
+                                color: white;
+                                border: none;
+                            }
+
+                            @media (min-width: 1024px) {
+                                .split-left {
+                                    display: block;
+                                }
+                                .split-right {
+                                    width: 65%;
+                                }
+                            }
+                        </style>
+
+                        <h2 class="text-center">Register as a Professional</h2>
+                        
+                        <!-- Progress bar and form sections -->
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" id="registration-progress" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Step 1 of 3</div>
                 </div>
@@ -64,6 +205,7 @@
                                     <tr>
                                         <th>Institution</th>
                                         <th>Education Level</th>
+                                        <th>Start Year</th>
                                         <th>Year Completed</th>
                                         <th>Actions</th>
                                     </tr>
@@ -91,14 +233,26 @@
                                             <div class="form-group">
                                                 <label for="modal_education_level">Education Level</label>
                                                 <select class="form-control" id="modal_education_level" required="required">
-                                                    <option value="a_level">A-Level</option>
                                                     <option value="o_level">O-Level</option>
-                                                    <option value="university">University/Tertiary</option>
+                                                    <option value="gcse">GCSE</option>
+                                                    <option value="gse">GSE</option>
+                                                    <option value="a_level">A-Level</option>
+                                                    <option value="ordinary_certificate">Ordinary Certificate</option>
+                                                    <option value="ordinary_diploma">Ordinary Diploma</option>
+                                                    <option value="bachelors">Bachelors Degree</option>
+                                                    <option value="masters">Masters Degree</option>
+                                                    <option value="phd">PhD</option>
+                                                    <option value="others">Others</option>
                                                 </select>
                                             </div>
+                                            <!-- Start Year -->
                                             <div class="form-group">
-                                                <label for="modal_year_completed">Year Completed</label>
-                                                <input type="number" class="form-control" id="modal_year_completed" required="required"/>
+                                                <label for="modal_start_year">Start Date</label>
+                                                <input type="date" class="form-control" id="modal_start_year" required="required"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal_year_completed">Completion Date</label>
+                                                <input type="date" class="form-control" id="modal_year_completed" required="required"/>
                                             </div>
                                             <button type="button" class="btn btn-primary mt-4 mb-4" onclick="addEducationEntry()">Add</button>
                                         </form>
@@ -120,6 +274,7 @@
                                     <tr>
                                         <th>Certification Name</th>
                                         <th>Issuing Organization</th>
+                                        <th>Type of Certification</th>
                                         <th>Date Awarded</th>
                                         <th>Expiration Date</th>
                                         <th>Actions</th>
@@ -150,12 +305,35 @@
                                                 <input type="text" class="form-control" id="modal_issuing_organization" required="required"/>
                                             </div>
                                             <div class="form-group">
+                                                <label for="modal_certification_type">Type of Certification</label>
+                                                <select class="form-control" id="modal_certification_type" required="required">
+                                                    <option value="professional">Professional Certification</option>
+                                                    <option value="attendance">Certificate of Attendance</option>
+                                                    <option value="completion">Certificate of Completion</option>
+                                                    <option value="academic">Academic</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal_certification_number">Competency Level</label>
+                                                <select class="form-control" id="modal_certification_competency" required="required">
+                                                    <option value="beginner">Beginner</option>
+                                                    <option value="intermediate">Intermediate</option>
+                                                    <option value="advanced">Advanced</option>
+                                                    <option value="expert">Expert</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="modal_date_awarded">Date Awarded</label>
                                                 <input type="date" class="form-control" id="modal_date_awarded"/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="modal_expiration_date">Expiration Date</label>
                                                 <input type="date" class="form-control" id="modal_expiration_date"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal_certification_number">Certification Number</label>
+                                                <input type="text" class="form-control" id="modal_certification_number" />
                                             </div>
                                             <button type="button" class="btn btn-primary mt-4 mb-4" onclick="addCertificationEntry()">Add</button>
                                         </form>
@@ -300,9 +478,10 @@
                         <button type="button" class="btn btn-success mt-4 mb-4" onclick="submitForm()">Submit Registration</button>
                     </div>
                     
-                </form>    
+                </form>  
+                    </div>
+                </div>
             </div>
-
         </t>
     </template>
 

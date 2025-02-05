@@ -1,0 +1,247 @@
+<odoo>
+    <template id="professionals_listing_template" name="Professionals Listing">
+        <t t-call="website.layout">
+            <div class="container-fluid px-0">
+                <style>
+                    :root {
+                        --primary-color: #004c97;
+                        --secondary-color: rgb(216, 169, 13);
+                        --accent-color: #2a94b2;
+                        --text-color: #333;
+                    }
+
+                    /* Hero Section */
+                    .hero-section {
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                        padding: 6rem 0;
+                        position: relative;
+                        overflow: hidden;
+                        margin-bottom: 4rem;
+                    }
+
+                    .hero-section::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -50px;
+                        left: 0;
+                        right: 0;
+                        height: 100px;
+                        background: white;
+                        transform: skewY(-3deg);
+                    }
+
+                    .hero-content {
+                        position: relative;
+                        z-index: 1;
+                        text-align: center;
+                        color: white;
+                    }
+
+                    /* Search Section */
+                    .search-section {
+                        margin-top: -2rem;
+                        position: relative;
+                        z-index: 2;
+                        padding: 0 1rem;
+                    }
+
+                    .search-container {
+                        background: white;
+                        border-radius: 12px;
+                        padding: 2rem;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        max-width: 800px;
+                        margin: 0 auto;
+                    }
+
+                    .search-input {
+                        height: 50px;
+                        border-radius: 25px;
+                        border: 2px solid #e9ecef;
+                        padding: 0.75rem 1.5rem;
+                        transition: all 0.3s ease;
+                    }
+
+                    .search-input:focus {
+                        border-color: var(--primary-color);
+                        box-shadow: 0 0 0 0.2rem rgba(0, 76, 151, 0.25);
+                    }
+
+                    /* Professional Cards */
+                    .professional-card {
+                        background: white;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        height: 100%;
+                        border: 1px solid #e0e0e0;
+                    }
+
+                    .professional-card:hover {
+                        transform: translateY(-10px);
+                        box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+                    }
+
+                    .card-top-bg {
+                        height: 80px;
+                        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+                    }
+
+                    .professional-img-wrapper {
+                        margin-top: -40px;
+                        padding: 0 1rem;
+                    }
+
+                    .professional-img {
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                        border: 3px solid white;
+                        object-fit: cover;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        transition: transform 0.3s ease;
+                    }
+
+                    .professional-card:hover .professional-img {
+                        transform: scale(1.05);
+                    }
+
+                    .card-body {
+                        padding: 1.5rem;
+                    }
+
+                    .card-title {
+                        color: var(--primary-color);
+                        font-size: 1.2rem;
+                        margin-bottom: 0.5rem;
+                        transition: color 0.3s ease;
+                    }
+
+                    .info-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        margin-bottom: 0.5rem;
+                        opacity: 0.8;
+                        transition: opacity 0.3s ease;
+                    }
+
+                    .professional-card:hover .info-item {
+                        opacity: 1;
+                    }
+
+                    @keyframes fadeInUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+
+                    .animate-fadeInUp {
+                        animation: fadeInUp 0.6s ease forwards;
+                    }
+                </style>
+
+                <!-- Hero Section -->
+                <section class="hero-section">
+                    <div class="hero-content">
+                        <h1>Find IT Professionals</h1>
+                        <p>Connect with verified software engineers and IT experts</p>
+                    </div>
+                </section>
+
+                <!-- Search Section -->
+                <section class="search-section">
+                    <div class="search-container animate-fadeInUp">
+                        <form class="row g-3" t-attf-action="/professionals" method="get">
+                            <div class="col-md-5">
+                                <input type="text" name="search" class="form-control search-input" 
+                                       t-att-value="search if search else ''"
+                                       placeholder="Search by name or skill"/>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="category" class="form-control search-input">
+                                    <option value="">All Categories</option>
+                                    <t t-foreach="categories" t-as="category">
+                                        <option t-att-value="category.id" 
+                                                t-att-selected="category.id == selected_category">
+                                            <t t-esc="category.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary w-100 search-input">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Professionals Grid -->
+                <div class="container py-5">
+                    <div class="row g-4">
+                        <t t-foreach="professionals" t-as="professional">
+                            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                <a t-att-href="'/professional/' + str(professional.id)" 
+                                   class="text-decoration-none animate-fadeInUp"
+                                   t-att-style="'animation-delay: ' + str(professional_index * 0.1) + 's'">
+                                    <div class="professional-card">
+                                        <div class="card-top-bg"></div>
+                                        <div class="professional-img-wrapper">
+                                            <t t-if="professional.image_1920">
+                                                <img t-att-src="'data:image/png;base64,' + professional.image_1920.decode('utf-8')"
+                                                     alt="Professional"
+                                                     class="professional-img"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="professional-img d-flex align-items-center justify-content-center bg-light">
+                                                    <i class="fa fa-user-circle fa-2x text-muted"></i>
+                                                </div>
+                                            </t>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><t t-esc="professional.name or 'Unnamed Professional'"/></h5>
+                                            
+                                            <p t-if="professional.specializations" class="text-muted mb-3">
+                                                <t t-esc="professional.specializations"/>
+                                            </p>
+
+                                            <div class="info-list">
+                                                <t t-if="professional.committee_of_interest">
+                                                    <div class="info-item">
+                                                        <i class="fa fa-users text-primary"></i>
+                                                        <span><t t-esc="dict(professional._fields['committee_of_interest'].selection).get(professional.committee_of_interest, '')"/></span>
+                                                    </div>
+                                                </t>
+                                                
+                                                <t t-if="professional.years_experience">
+                                                    <div class="info-item">
+                                                        <i class="fa fa-clock text-primary"></i>
+                                                        <span><t t-esc="professional.years_experience"/> Years Experience</span>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div t-if="not professionals" class="text-center py-5">
+                        <h3>No professionals found</h3>
+                        <p>Try adjusting your search criteria</p>
+                    </div>
+
+                    <!-- Pagination -->
+                    <t t-call="website.pager"/>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
